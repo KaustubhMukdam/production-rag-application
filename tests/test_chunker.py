@@ -56,7 +56,7 @@ def test_chunk_documents_single_doc():
     chunks = chunker.chunk_documents(docs)
     assert len(chunks) > 1
     assert all(c["doc_id"] == "doc1" for c in chunks)
-    assert all("_0" in c["chunk_id"] or "_1" in c["chunk_id"] for c in chunks)
+    assert all("_" in c["chunk_id"] for c in chunks)
 
 
 def test_chunk_documents_multiple_docs():

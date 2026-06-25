@@ -11,3 +11,5 @@ docs/phases/
 docs/commands/
 learnings/
 .venv
+data/
+__pycache__/
