@@ -13,3 +13,4 @@ learnings/
 .venv
 data/
 __pycache__/
+.env

@@ -1,72 +1,35 @@
-from unittest.mock import patch, Mock
-import json
+from unittest.mock import patch
 
-from app.generation.generator import Generator
-from app.generation.prompts import build_prompt
+from app.generation.generator import create_generator, _fallback_generator
 
 
-def test_build_prompt_includes_context():
-    chunks = [
-        {"chunk_id": "doc1_0", "text": "the cat sat on the mat"},
-    ]
-    prompt = build_prompt("Where is the cat?", chunks)
-    assert "the cat sat on the mat" in prompt
-    assert "Where is the cat?" in prompt
+def test_create_generator_ollama():
+    with patch("app.config.LLM_PROVIDER", "ollama"):
+        gen = create_generator()
+        from app.generation.ollama import OllamaGenerator
+        assert isinstance(gen, OllamaGenerator)
 
 
-def test_build_prompt_multiple_chunks():
-    chunks = [
-        {"chunk_id": "doc1_0", "text": "chunk one content"},
-        {"chunk_id": "doc1_1", "text": "chunk two content"},
-    ]
-    prompt = build_prompt("test query", chunks)
-    assert "chunk one content" in prompt
-    assert "chunk two content" in prompt
-    assert "[Chunk doc1_0]" in prompt
-    assert "[Chunk doc1_1]" in prompt
+def test_create_generator_explicit_ollama():
+    gen = create_generator("ollama")
+    from app.generation.ollama import OllamaGenerator
+    assert isinstance(gen, OllamaGenerator)
 
 
-@patch("app.generation.generator.requests.post")
-def test_generate_calls_ollama(mock_post):
-    mock_response = Mock()
-    mock_response.json.return_value = {"response": "The cat is on the mat."}
-    mock_response.raise_for_status.return_value = None
-    mock_post.return_value = mock_response
-
-    generator = Generator(base_url="http://localhost:11434", model="llama3.2:3b")
-    chunks = [{"chunk_id": "doc1_0", "text": "the cat sat on the mat"}]
-    answer = generator.generate("Where is the cat?", chunks)
-
-    assert answer == "The cat is on the mat."
-    mock_post.assert_called_once()
+@patch.dict("os.environ", {"GROQ_API_KEY": "sk-test-key"})
+def test_create_generator_explicit_groq():
+    gen = create_generator("groq")
+    from app.generation.groq import GroqGenerator
+    assert isinstance(gen, GroqGenerator)
 
 
-@patch("app.generation.generator.requests.post")
-def test_generate_sends_correct_payload(mock_post):
-    mock_response = Mock()
-    mock_response.json.return_value = {"response": "answer"}
-    mock_response.raise_for_status.return_value = None
-    mock_post.return_value = mock_response
-
-    generator = Generator(base_url="http://localhost:11434", model="llama3.2:3b")
-    chunks = [{"chunk_id": "doc1_0", "text": "context text"}]
-    generator.generate("test query", chunks)
-
-    call_kwargs = mock_post.call_args[1]
-    assert call_kwargs["json"]["model"] == "llama3.2:3b"
-    assert "test query" in call_kwargs["json"]["prompt"]
-    assert call_kwargs["json"]["stream"] is False
+def test_fallback_generator_returns_ollama():
+    gen = _fallback_generator()
+    from app.generation.ollama import OllamaGenerator
+    assert isinstance(gen, OllamaGenerator)
 
 
-@patch("app.generation.generator.requests.post")
-def test_generate_uses_base_url(mock_post):
-    mock_response = Mock()
-    mock_response.json.return_value = {"response": "answer"}
-    mock_response.raise_for_status.return_value = None
-    mock_post.return_value = mock_response
-
-    generator = Generator(base_url="http://custom:11434", model="phi3:mini")
-    generator.generate("query", [])
-
-    called_url = mock_post.call_args[0][0]
-    assert "http://custom:11434" in called_url
+def test_create_generator_unknown_provider_falls_back():
+    gen = create_generator("nonexistent")
+    from app.generation.ollama import OllamaGenerator
+    assert isinstance(gen, OllamaGenerator)

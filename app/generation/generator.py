@@ -1,19 +1,21 @@
-import requests
+from typing import Protocol
 
-from app.config import OLLAMA_BASE_URL, OLLAMA_MODEL
-from app.generation.prompts import build_prompt
+from app.config import LLM_PROVIDER
 
 
-class Generator:
-    def __init__(self, base_url: str = OLLAMA_BASE_URL, model: str = OLLAMA_MODEL):
-        self.base_url = base_url.rstrip("/")
-        self.model = model
+class Generator(Protocol):
+    def generate(self, query: str, context_chunks: list, strict: bool = False) -> str:
+        ...
 
-    def generate(self, query: str, context_chunks: list) -> str:
-        prompt = build_prompt(query, context_chunks)
-        response = requests.post(
-            f"{self.base_url}/api/generate",
-            json={"model": self.model, "prompt": prompt, "stream": False},
-        )
-        response.raise_for_status()
-        return response.json()["response"]
+
+def create_generator(provider: str | None = None) -> Generator:
+    provider = provider or LLM_PROVIDER
+    if provider == "groq":
+        from app.generation.groq import GroqGenerator
+        return GroqGenerator()
+    return _fallback_generator()
+
+
+def _fallback_generator() -> Generator:
+    from app.generation.ollama import OllamaGenerator
+    return OllamaGenerator()

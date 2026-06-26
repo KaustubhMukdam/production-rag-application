@@ -31,7 +31,9 @@ def _make_mock_pipeline():
     ]
     pipeline.reranker = mock_reranker
     mock_generator = MagicMock()
-    mock_generator.generate.return_value = "The cat is on the mat."
+    mock_generator.generate.return_value = (
+        '{"answer": "The cat is on the mat.", "source_chunk_ids": ["test_doc_0"], "supported": true}'
+    )
     pipeline.generator = mock_generator
     pipeline._indexed = False
     return pipeline
@@ -71,8 +73,22 @@ def test_pipeline_query_returns_expected_structure(sample_docs):
     assert "question" in result
     assert "answer" in result
     assert "retrieved_chunks" in result
+    assert "structured_answer" in result
     assert result["question"] == "Where is the cat?"
     assert result["answer"] == "The cat is on the mat."
+
+
+def test_pipeline_structured_answer_has_correct_fields(sample_docs):
+    pipeline = _make_mock_pipeline()
+    pipeline.index_documents(sample_docs)
+    result = pipeline.query("Where is the cat?")
+    sa = result["structured_answer"]
+    assert "answer" in sa
+    assert "source_chunk_ids" in sa
+    assert "supported" in sa
+    assert sa["answer"] == "The cat is on the mat."
+    assert sa["source_chunk_ids"] == ["test_doc_0"]
+    assert sa["supported"] is True
 
 
 def test_pipeline_retrieved_chunks_have_rerank_scores(sample_docs):
@@ -89,3 +105,58 @@ def test_pipeline_index_can_be_called_twice(sample_docs):
     pipeline.index_documents(sample_docs)
     assert pipeline._indexed is True
     assert pipeline.retriever.index.call_count == 2
+
+
+def test_pipeline_invalid_citation_retries(sample_docs):
+    pipeline = _make_mock_pipeline()
+    from unittest.mock import MagicMock
+    generator = MagicMock()
+    generator.generate.side_effect = [
+        '{"answer": "bad", "source_chunk_ids": ["nonexistent"], "supported": true}',
+        '{"answer": "good", "source_chunk_ids": ["test_doc_0"], "supported": true}',
+    ]
+    pipeline.generator = generator
+    pipeline.index_documents(sample_docs)
+    result = pipeline.query("query")
+    assert result["answer"] == "good"
+    assert result["structured_answer"]["supported"] is True
+    assert generator.generate.call_count == 2
+
+
+def test_pipeline_invalid_citation_twice_returns_unsupported(sample_docs):
+    pipeline = _make_mock_pipeline()
+    generator = MagicMock()
+    generator.generate.return_value = (
+        '{"answer": "still bad", "source_chunk_ids": ["nonexistent"], "supported": true}'
+    )
+    pipeline.generator = generator
+    pipeline.index_documents(sample_docs)
+    result = pipeline.query("query")
+    assert result["answer"] == "still bad"
+    assert result["structured_answer"]["supported"] is False
+    assert generator.generate.call_count == 2
+
+
+def test_pipeline_unparseable_json_retries(sample_docs):
+    pipeline = _make_mock_pipeline()
+    generator = MagicMock()
+    generator.generate.side_effect = [
+        "not json at all",
+        '{"answer": "retry worked", "source_chunk_ids": ["test_doc_0"], "supported": true}',
+    ]
+    pipeline.generator = generator
+    pipeline.index_documents(sample_docs)
+    result = pipeline.query("query")
+    assert result["answer"] == "retry worked"
+    assert result["structured_answer"]["supported"] is True
+
+
+def test_pipeline_unparseable_twice_returns_unsupported(sample_docs):
+    pipeline = _make_mock_pipeline()
+    generator = MagicMock()
+    generator.generate.return_value = "completely broken output"
+    pipeline.generator = generator
+    pipeline.index_documents(sample_docs)
+    result = pipeline.query("query")
+    assert "completely broken output" in result["answer"]
+    assert result["structured_answer"]["supported"] is False
