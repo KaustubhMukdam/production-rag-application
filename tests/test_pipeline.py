@@ -72,6 +72,7 @@ def test_pipeline_query_returns_expected_structure(sample_docs):
     result = pipeline.query("Where is the cat?")
     assert "question" in result
     assert "answer" in result
+    assert "provider" in result
     assert "retrieved_chunks" in result
     assert "structured_answer" in result
     assert result["question"] == "Where is the cat?"

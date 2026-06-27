@@ -1,17 +1,10 @@
 import sys
-from pathlib import Path
-
-from dotenv import load_dotenv
 
 from app.pipeline import Pipeline
 from app.ingestion.loader import load_documents
 
 
 def main():
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if env_path.exists():
-        load_dotenv(env_path)
-
     if len(sys.argv) < 2:
         print("Usage: python -m app \"your question here\"")
         sys.exit(1)
@@ -26,7 +19,7 @@ def main():
     pipeline.index_documents(docs)
     print(f"Querying: {question}")
     result = pipeline.query(question)
-    print(f"\nAnswer: {result['answer']}")
+    print(f"\nAnswer ({result['provider']}): {result['answer']}")
     sa = result["structured_answer"]
     if not sa["supported"]:
         print("\nNote: We could not strictly verify this answer against the provided documents.")

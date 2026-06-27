@@ -1,6 +1,12 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+env_path = Path(__file__).resolve().parent.parent / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 DATA_DIR = PROJECT_ROOT / "data"
@@ -25,5 +31,6 @@ RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama")
+_has_groq_key = bool(os.getenv("GROQ_API_KEY"))
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq" if _has_groq_key else "ollama")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")

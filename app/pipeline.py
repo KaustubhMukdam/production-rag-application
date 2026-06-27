@@ -38,11 +38,13 @@ class Pipeline:
         reranked = self.reranker.rerank(question, retrieved)[:TOP_K]
 
         raw = self.generator.generate(question, reranked)
+        provider = getattr(self.generator, "provider", "unknown")
         structured = self._parse_and_validate(raw, reranked, question)
 
         return {
             "question": question,
             "answer": structured.answer,
+            "provider": provider,
             "retrieved_chunks": reranked,
             "structured_answer": {
                 "answer": structured.answer,

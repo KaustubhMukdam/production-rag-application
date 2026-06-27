@@ -5,6 +5,8 @@ from app.generation.prompts import build_prompt
 
 
 class OllamaGenerator:
+    provider = "ollama"
+
     def __init__(self, base_url: str = OLLAMA_BASE_URL, model: str = OLLAMA_MODEL):
         self.base_url = base_url.rstrip("/")
         self.model = model

@@ -11,6 +11,8 @@ class GroqError(Exception):
 
 
 class GroqGenerator:
+    provider = "groq"
+
     def __init__(self, model: str = GROQ_MODEL, fallback=None):
         self.api_key = os.getenv("GROQ_API_KEY")
         if not self.api_key:
@@ -22,6 +24,7 @@ class GroqGenerator:
         try:
             return self._groq_call(query, context_chunks, strict=strict)
         except requests.RequestException as e:
+            self.provider = self.fallback.provider
             return self._fallback(query, context_chunks, f"Groq API error: {e}", strict=strict)
 
     def _groq_call(self, query: str, context_chunks: list, strict: bool = False) -> str:
