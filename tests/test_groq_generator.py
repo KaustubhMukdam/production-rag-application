@@ -53,12 +53,12 @@ def test_groq_generate_sends_correct_payload(mock_post):
     mock_post.return_value = mock_response
 
     with patch.dict("os.environ", {"GROQ_API_KEY": "sk-test-key"}):
-        gen = GroqGenerator(model="llama-3.3-70b-versatile")
+        gen = GroqGenerator(model="openai/gpt-oss-120b")
         gen.generate("test query", [{"chunk_id": "a", "text": "ctx"}])
 
     call_kwargs = mock_post.call_args[1]
     assert call_kwargs["headers"]["Authorization"] == "Bearer sk-test-key"
-    assert call_kwargs["json"]["model"] == "llama-3.3-70b-versatile"
+    assert call_kwargs["json"]["model"] == "openai/gpt-oss-120b"
 
 
 @patch("app.generation.groq.requests.post")

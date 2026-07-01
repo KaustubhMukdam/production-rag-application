@@ -1,0 +1,2303 @@
+[
+  {
+    "id": "def-disfluencies",
+    "question": "What are disfluencies in the context of spoken language transcription?",
+    "reference_chunk_ids": [
+      56,
+      57
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-types-instances",
+    "question": "How do word types differ from word instances within a language corpus?",
+    "reference_chunk_ids": [
+      64,
+      65
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-chinese-segmentation",
+    "question": "Give an example of how Chinese word segmentation can yield different token counts depending on the standard applied.",
+    "reference_chunk_ids": [
+      89,
+      92,
+      94
+    ],
+    "category": "example"
+  },
+  {
+    "id": "def-bpe",
+    "question": "What is the Byte-Pair Encoding (BPE) algorithm and what is its starting vocabulary?",
+    "reference_chunk_ids": [
+      367,
+      368
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "exp-unknown-words",
+    "question": "Why do tokenization algorithms like BPE help eliminate the unknown word problem in machine learning models?",
+    "reference_chunk_ids": [
+      351,
+      354,
+      355
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "comp-bpe-superbpe",
+    "question": "How does the SuperBPE algorithm differ from the standard BPE tokenization approach?",
+    "reference_chunk_ids": [
+      549,
+      550
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-regex-digits",
+    "question": "Give an example of a regular expression that matches a sequence of digits and explain the operator used.",
+    "reference_chunk_ids": [
+      677
+    ],
+    "category": "example"
+  },
+  {
+    "id": "comp-kleene-operators",
+    "question": "How does the Kleene star (*) differ from the Kleene plus (+) operator in regular expressions?",
+    "reference_chunk_ids": [
+      664,
+      676
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "exp-regex-escapes",
+    "question": "Why is the backslash character used to escape special characters in regular expressions?",
+    "reference_chunk_ids": [
+      777,
+      779
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-edit-distance",
+    "question": "How is the minimum edit distance between two strings formally defined?",
+    "reference_chunk_ids": [
+      988
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "exp-dynamic-programming",
+    "question": "Why is dynamic programming used to compute the minimum edit distance instead of a naive search through all possible edits?",
+    "reference_chunk_ids": [
+      1015,
+      1016,
+      1019,
+      1020
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "ex-levenshtein",
+    "question": "Give an example of calculating the minimum edit distance between 'intention' and 'execution' using the Levenshtein distance where substitutions have a cost of 2.",
+    "reference_chunk_ids": [
+      1002,
+      1004
+    ],
+    "category": "example"
+  },
+  {
+    "id": "def-perplexity",
+    "question": "What is perplexity and how is it used to evaluate language models?",
+    "reference_chunk_ids": [
+      140,
+      141
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-interpolation-backoff",
+    "question": "How does n-gram interpolation differ from the stupid backoff algorithm when dealing with unseen word sequences?",
+    "reference_chunk_ids": [
+      215,
+      220,
+      221
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-mle-bigram",
+    "question": "Give an example of how to estimate a bigram probability using maximum likelihood estimation (MLE).",
+    "reference_chunk_ids": [
+      55,
+      56,
+      57
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-log-probabilities",
+    "question": "Why are probabilities in large language models typically stored and computed in log space?",
+    "reference_chunk_ids": [
+      88,
+      89
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-softmax",
+    "question": "What is the softmax function and how does it convert a vector of arbitrary values into a probability distribution?",
+    "reference_chunk_ids": [
+      18
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-l1-l2-regularization",
+    "question": "How does L1 regularization differ from L2 regularization in terms of the resulting weight vectors?",
+    "reference_chunk_ids": [
+      31
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-confusion-matrix-spam",
+    "question": "Give an example of a true positive and a false negative in the context of a spam detection system using a confusion matrix.",
+    "reference_chunk_ids": [
+      22
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-cross-validation",
+    "question": "Why is k-fold cross-validation used, and how does the process of partitioning data into folds work?",
+    "reference_chunk_ids": [
+      25
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-distributional-hypothesis",
+    "question": "What is the distributional hypothesis in the context of vector semantics?",
+    "reference_chunk_ids": [
+      13,
+      14
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-co-occurrence",
+    "question": "How do first-order co-occurrence and second-order co-occurrence differ in how they capture word associations?",
+    "reference_chunk_ids": [
+      147,
+      148
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "exp-cosine-similarity",
+    "question": "Why is the raw dot product considered problematic as a similarity metric between words, and how does cosine similarity resolve this issue?",
+    "reference_chunk_ids": [
+      74,
+      76
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "ex-parallelogram-model",
+    "question": "Give an example of how the parallelogram model is used to solve relational similarity or analogy problems with word embeddings.",
+    "reference_chunk_ids": [
+      149,
+      150
+    ],
+    "category": "example"
+  },
+  {
+    "id": "def-feedforward-network",
+    "question": "What is a feedforward neural network?",
+    "reference_chunk_ids": [
+      2,
+      17
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-relu-sigmoid",
+    "question": "How does the ReLU activation function differ from sigmoid or tanh functions with respect to the vanishing gradient problem?",
+    "reference_chunk_ids": [
+      11
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-xor-problem",
+    "question": "Give an example of a simple logical function that cannot be computed by a single perceptron.",
+    "reference_chunk_ids": [
+      13,
+      14,
+      15
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-nonlinear-activation",
+    "question": "Why is it necessary to use non-linear activation functions in multi-layer neural networks?",
+    "reference_chunk_ids": [
+      32,
+      33
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-data-contamination",
+    "question": "What is data contamination in the context of evaluating large language models?",
+    "reference_chunk_ids": [
+      21
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-encoder-vs-decoder",
+    "question": "How do encoder architectures differ from decoder architectures in terms of their information flow and primary generative capabilities?",
+    "reference_chunk_ids": [
+      4,
+      5
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-few-shot-prompting",
+    "question": "Give an example of a few-shot prompt that incorporates demonstrations to guide a large language model.",
+    "reference_chunk_ids": [
+      7,
+      8
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-temperature-sampling",
+    "question": "Why does applying a temperature parameter of less than 1 (low-temperature sampling) increase the probability of generating the most likely tokens and push the model towards greedy decoding?",
+    "reference_chunk_ids": [
+      12,
+      13
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-attention",
+    "question": "What is attention in the context of a transformer, and what is its primary function?",
+    "reference_chunk_ids": [
+      7,
+      31
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-query-key-value",
+    "question": "In a single attention head, how do the roles of the query, key, and value vectors differ from one another?",
+    "reference_chunk_ids": [
+      43,
+      44,
+      45
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "exp-residual-stream",
+    "question": "Why is the residual stream metaphor useful for understanding how a transformer block processes an individual token?",
+    "reference_chunk_ids": [
+      66,
+      67
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "exp-masking-future",
+    "question": "Why is a mask matrix added during the self-attention computation for causal language modeling, and how does it affect the upper-triangular portion of the matrix?",
+    "reference_chunk_ids": [
+      88,
+      89
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "comp-topk-topp",
+    "question": "How does top-p (nucleus) sampling differ from top-k sampling when truncating the probability distribution over candidate words?",
+    "reference_chunk_ids": [
+      125,
+      126
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "def-induction-heads",
+    "question": "What are induction heads, and how do they function to predict repeated sequences within a transformer model?",
+    "reference_chunk_ids": [
+      153,
+      154
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "def-instruction-tuning",
+    "question": "What is instruction tuning (also known as supervised finetuning), and what is its primary purpose in the post-training phase of large language models?",
+    "reference_chunk_ids": [
+      4
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-dpo-ppo",
+    "question": "How does Direct Preference Optimization (DPO) differ from Reinforcement Learning with Preference Feedback (PPO) in terms of computational efficiency and the number of models that must be maintained during training?",
+    "reference_chunk_ids": [
+      18,
+      19
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-preference-data",
+    "question": "Give an example of a prompt paired with a 'chosen' and a 'rejected' output that demonstrates the format of LLM preference data.",
+    "reference_chunk_ids": [
+      10
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-cot-prompting",
+    "question": "Why does chain-of-thought prompting generally improve a language model's ability to solve difficult reasoning tasks?",
+    "reference_chunk_ids": [
+      20
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-cloze-task",
+    "question": "What is the cloze task in the context of training bidirectional encoders?",
+    "reference_chunk_ids": [
+      9
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-contextual-vs-static",
+    "question": "How do contextual embeddings differ from the static embeddings generated by models like word2vec?",
+    "reference_chunk_ids": [
+      9
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-mlm-masking",
+    "question": "Give an example of how input tokens are manipulated (e.g., using the [MASK] token or random replacements) during Masked Language Modeling training.",
+    "reference_chunk_ids": [
+      9
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-cls-token",
+    "question": "Why is the [CLS] token prepended to input sequences during sequence classification finetuning?",
+    "reference_chunk_ids": [
+      9
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-rag",
+    "question": "What is Retrieval-Augmented Generation (RAG) and why is it used to address problems with simple LLM prompting?",
+    "reference_chunk_ids": [
+      33,
+      34
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-sparse-dense-retrieval",
+    "question": "How do sparse retrieval methods (like tf-idf or BM25) differ from dense retrieval methods in terms of how they represent queries and documents?",
+    "reference_chunk_ids": [
+      37,
+      59,
+      60
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-tf-idf",
+    "question": "Give an example of how the tf-idf value for a term t in a document d is calculated, explaining the roles of term frequency (tf) and inverse document frequency (idf).",
+    "reference_chunk_ids": [
+      48,
+      49,
+      50
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-hallucination-calibration",
+    "question": "Why do large language models sometimes hallucinate, and how does the lack of calibration in LLMs contribute to the difficulty of identifying these incorrect factual responses?",
+    "reference_chunk_ids": [
+      32
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "exp-colbert-mechanism",
+    "question": "Why does the ColBERT algorithm use a 'sum of maximum similarity' (MaxSim) operator instead of a simple dot product between the [CLS] token vectors of the query and document?",
+    "reference_chunk_ids": [
+      64,
+      65
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-machine-translation",
+    "question": "What is machine translation (MT), and what is its most common current use in NLP technology?",
+    "reference_chunk_ids": [
+      1
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-word-order-typology",
+    "question": "How does the basic word order of SVO languages (like English) differ from SOV languages (like Japanese) in terms of clause structure and the placement of verbs?",
+    "reference_chunk_ids": [
+      56,
+      57,
+      58
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-lexical-divergence",
+    "question": "Give an example of a lexical divergence where one language uses a single word to describe a concept that another language splits into distinct words, such as the case of the English word 'wall'.",
+    "reference_chunk_ids": [
+      88
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-backtranslation",
+    "question": "Why is backtranslation an effective data augmentation technique for improving machine translation in low-resource situations?",
+    "reference_chunk_ids": [
+      171,
+      172
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-chrf-metric",
+    "question": "What is the chrF metric, and how does it evaluate machine translation output?",
+    "reference_chunk_ids": [
+      234,
+      235,
+      236
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "def-rnn",
+    "question": "What is a Recurrent Neural Network (RNN), and what is the key characteristic that distinguishes its architecture from a feedforward network?",
+    "reference_chunk_ids": [
+      3,
+      4
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-rnn-feedforward-context",
+    "question": "How does the way an RNN represents prior context differ from the approach taken by n-gram or feedforward language models?",
+    "reference_chunk_ids": [
+      3,
+      17
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "exp-vanishing-gradients",
+    "question": "Why does the vanishing gradient problem occur in deep RNNs during backpropagation through time, and how do gated architectures like LSTMs attempt to mitigate it?",
+    "reference_chunk_ids": [
+      13,
+      14,
+      15
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "exp-lstm-gates",
+    "question": "Why do the forget, add, and output gates in an LSTM use the sigmoid activation function?",
+    "reference_chunk_ids": [
+      15
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "ex-bidirectional-rnn",
+    "question": "Give an example of a task where a bidirectional RNN might be more effective than a standard unidirectional RNN, and explain why.",
+    "reference_chunk_ids": [
+      12,
+      13
+    ],
+    "category": "example"
+  },
+  {
+    "id": "def-phonetics",
+    "question": "What is phonetics, and how do phones differ from the letters of standard orthography?",
+    "reference_chunk_ids": [
+      2,
+      3
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-voiced-unvoiced",
+    "question": "How does a voiced sound differ from an unvoiced (voiceless) sound in terms of the physical action of the vocal folds?",
+    "reference_chunk_ids": [
+      6
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-vowel-articulation",
+    "question": "Give an example of a high front vowel and a high back vowel, and explain how the position of the tongue differs for these two sounds.",
+    "reference_chunk_ids": [
+      12
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-source-filter-model",
+    "question": "Why does the vocal tract act as a filter in the source-filter model of speech production, and how does this affect the resulting sound spectrum?",
+    "reference_chunk_ids": [
+      20
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-spectrogram",
+    "question": "What is a spectrogram, and what do the three dimensions of the plot represent?",
+    "reference_chunk_ids": [
+      18
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "def-asr-task",
+    "question": "What is the task of automatic speech recognition (ASR), and what are the main dimensions of variation that impact its difficulty?",
+    "reference_chunk_ids": [
+      1,
+      2,
+      3
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-greedy-vs-beam-search",
+    "question": "How does beam search decoding differ from greedy decoding in terms of how it explores the search tree of possible speech transcriptions?",
+    "reference_chunk_ids": [
+      13,
+      14,
+      15
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-convolutional-layer-stride",
+    "question": "Give an example of how a convolutional layer with a stride greater than 1 affects the input sequence length, and explain why this is useful in ASR.",
+    "reference_chunk_ids": [
+      6,
+      7,
+      8
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-ctc-blank",
+    "question": "Why does the CTC algorithm incorporate a special 'blank' symbol in its transcription alphabet, and how is it used during the alignment collapsing process?",
+    "reference_chunk_ids": [
+      17,
+      18
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "exp-wer-calculation",
+    "question": "Why is the Word Error Rate (WER) metric potentially able to exceed 100% when calculating errors between a reference transcription and a hypothesis?",
+    "reference_chunk_ids": [
+      21,
+      22
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-tts",
+    "question": "What is Text-to-Speech (TTS), also known as speech synthesis?",
+    "reference_chunk_ids": [
+      1
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-zeroshot-traditional",
+    "question": "How does modern zero-shot TTS differ from the traditional method of training a speech synthesizer?",
+    "reference_chunk_ids": [
+      2
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-rvq",
+    "question": "Give an example of how residual vector quantization (RVQ) works when processing an input embedding.",
+    "reference_chunk_ids": [
+      7
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-codec-tokenization",
+    "question": "Why do modern TTS systems convert speech into discrete audio tokens using an audio codec, rather than using the raw digital representation of speech?",
+    "reference_chunk_ids": [
+      3
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-mos",
+    "question": "What is a Mean Opinion Score (MOS) and how is it used to evaluate TTS systems?",
+    "reference_chunk_ids": [
+      11
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "def-pos-tagging",
+    "question": "What is part-of-speech (POS) tagging, and why is it considered a sequence labeling task?",
+    "reference_chunk_ids": [
+      39,
+      40
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-hmm-crf",
+    "question": "How does a Conditional Random Field (CRF) differ from a Hidden Markov Model (HMM) in terms of the types of features they can incorporate into the model?",
+    "reference_chunk_ids": [
+      38,
+      39,
+      40
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-bio-tagging",
+    "question": "Give an example of how the BIO tagging scheme represents a multi-word named entity, such as 'United Airlines Holding'.",
+    "reference_chunk_ids": [
+      126,
+      127
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-viterbi-algorithm",
+    "question": "Why does the Viterbi algorithm use dynamic programming instead of an exhaustive search to find the most probable sequence of states in an HMM?",
+    "reference_chunk_ids": [
+      112,
+      113
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-named-entity",
+    "question": "What is a named entity, and why is the term commonly extended beyond simple proper names of persons, locations, and organizations?",
+    "reference_chunk_ids": [
+      34
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "def-constituency",
+    "question": "What is syntactic constituency in the context of natural language?",
+    "reference_chunk_ids": [
+      1810,
+      1811
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-phrase-vs-word",
+    "question": "How does a noun phrase differ from its individual constituent words in terms of the syntactic environments where it can appear?",
+    "reference_chunk_ids": [
+      1811,
+      1812
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-noun-phrase",
+    "question": "Give an example of a noun phrase and a syntactic environment where the entire phrase can appear, but its individual constituent words cannot.",
+    "reference_chunk_ids": [
+      1811
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-constituency-importance",
+    "question": "Why is the concept of constituency important for correctly describing the ordering of words in English?",
+    "reference_chunk_ids": [
+      1812
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-cfg",
+    "question": "What is a context-free grammar (CFG) and what are its main components?",
+    "reference_chunk_ids": [
+      1820,
+      1821
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-terminal-nonterminal",
+    "question": "How do terminal symbols differ from non-terminal symbols in a context-free grammar?",
+    "reference_chunk_ids": [
+      1821,
+      1822
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-cfg-rule",
+    "question": "Give an example of a context-free rule expressing that a noun phrase can be composed of a determiner followed by a nominal.",
+    "reference_chunk_ids": [
+      1821
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-generative-grammar",
+    "question": "Why is the use of formal languages to model natural languages referred to as generative grammar?",
+    "reference_chunk_ids": [
+      1824
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-treebank",
+    "question": "What is a treebank in the context of parsing?",
+    "reference_chunk_ids": [
+      1830
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-bracketed-node-line",
+    "question": "How does bracketed notation differ from a standard node-and-line tree representation of a syntactic parse?",
+    "reference_chunk_ids": [
+      1830,
+      1831
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-treebank-rule",
+    "question": "Give an example of a CFG rule that can be implicitly extracted from the annotated sentences in the Penn Treebank.",
+    "reference_chunk_ids": [
+      1831,
+      1832
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-flat-grammar",
+    "question": "Why does extracting rules from a very flat treebank like the Penn Treebank result in a massive number of distinct grammar rules?",
+    "reference_chunk_ids": [
+      1832
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-cnf",
+    "question": "What does it mean for a context-free grammar to be in Chomsky normal form (CNF)?",
+    "reference_chunk_ids": [
+      1840,
+      1841
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-strong-weak-equivalence",
+    "question": "How does strong grammar equivalence differ from weak grammar equivalence?",
+    "reference_chunk_ids": [
+      1840
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-cnf-conversion",
+    "question": "Give an example of how a rule with three non-terminals (A -> B C D) can be converted into Chomsky normal form.",
+    "reference_chunk_ids": [
+      1841,
+      1842
+    ],
+    "category": "example"
+  },
+  {
+    "id": "def-structural-ambiguity",
+    "question": "What is structural ambiguity in syntactic parsing?",
+    "reference_chunk_ids": [
+      1850
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-pp-coordination-ambiguity",
+    "question": "How does PP-attachment ambiguity differ from coordination ambiguity?",
+    "reference_chunk_ids": [
+      1851,
+      1852
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-pp-attachment",
+    "question": "Give an example of a sentence that exhibits PP-attachment ambiguity and describe the two possible interpretations.",
+    "reference_chunk_ids": [
+      1850,
+      1851
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-ambiguity-problem",
+    "question": "Why is structural ambiguity considered the most serious problem faced by syntactic parsers?",
+    "reference_chunk_ids": [
+      1850,
+      1853
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-cky",
+    "question": "What is the Cocke-Kasami-Younger (CKY) algorithm?",
+    "reference_chunk_ids": [
+      1860,
+      1861
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-cky-naive",
+    "question": "How does the CKY dynamic programming approach differ from a naive top-down parsing approach in terms of handling subtrees?",
+    "reference_chunk_ids": [
+      1860
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-cky-matrix",
+    "question": "Give an example of how the fencepost indexing scheme works in a CKY matrix for a sentence of length n.",
+    "reference_chunk_ids": [
+      1865
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-cnf-requirement",
+    "question": "Why must a grammar be converted to Chomsky Normal Form (CNF) before it can be used with the standard CKY algorithm?",
+    "reference_chunk_ids": [
+      1862,
+      1863
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-neural-span",
+    "question": "What is a 'span' in the context of span-based neural constituency parsing?",
+    "reference_chunk_ids": [
+      1870,
+      1871
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-neural-cky-classic",
+    "question": "How does neural span-based CKY differ from classic CKY parsing regarding the use of handwritten grammar rules?",
+    "reference_chunk_ids": [
+      1870
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-span-vector",
+    "question": "Give an example of how a span's vector representation can be computed by subtracting the start fencepost embedding from the end fencepost embedding.",
+    "reference_chunk_ids": [
+      1872
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-neural-disambiguation",
+    "question": "Why do span-based neural parsers need to assign a score to each possible constituent?",
+    "reference_chunk_ids": [
+      1870,
+      1873
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-parseval",
+    "question": "What is the PARSEVAL metric and what does it measure?",
+    "reference_chunk_ids": [
+      1880
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-labeled-precision-recall",
+    "question": "How does labeled precision differ from labeled recall when evaluating a hypothesis parse against a reference parse?",
+    "reference_chunk_ids": [
+      1881,
+      1882
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-crossing-brackets",
+    "question": "Give an example of a crossing brackets error between a hypothesis parse and a reference parse.",
+    "reference_chunk_ids": [
+      1883
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-canonicalization",
+    "question": "Why does the PARSEVAL metric include a canonicalization algorithm when comparing parsers that use different grammars?",
+    "reference_chunk_ids": [
+      1884
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-lexical-head",
+    "question": "What is a lexical head within a syntactic constituent?",
+    "reference_chunk_ids": [
+      1890
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-head-finding-grammar",
+    "question": "How does dynamically identifying heads using a tree walk and a percolation table differ from specifying head rules directly within the grammar itself?",
+    "reference_chunk_ids": [
+      1891,
+      1892
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-head-rule",
+    "question": "Give an example of a heuristic rule used for finding the head of a Noun Phrase (NP) in the Penn Treebank.",
+    "reference_chunk_ids": [
+      1892
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-heads-dependency",
+    "question": "Why is the concept of a lexical head central to both constituency parsing and dependency grammars?",
+    "reference_chunk_ids": [
+      1890
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-dependency-grammar",
+    "question": "What is a dependency grammar?",
+    "reference_chunk_ids": [
+      1910,
+      1911
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-dependency-vs-phrase",
+    "question": "How does a dependency parse differ from a phrase-structure parse in how it represents the syntactic structure of a sentence?",
+    "reference_chunk_ids": [
+      1910
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-ud-relation",
+    "question": "Give an example of a clausal argument relation from the Universal Dependencies project.",
+    "reference_chunk_ids": [
+      1912
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-free-word-order",
+    "question": "Why are dependency grammars particularly well-suited for languages with relatively free word order?",
+    "reference_chunk_ids": [
+      1911
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-transition-parsing",
+    "question": "What is transition-based dependency parsing?",
+    "reference_chunk_ids": [
+      1920,
+      1921
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-arc-standard-eager",
+    "question": "How does the arc-eager transition system differ from the arc-standard transition system regarding when dependents can be attached to their heads?",
+    "reference_chunk_ids": [
+      1924,
+      1925
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-feature-template",
+    "question": "Give an example of a feature template used to extract features for a transition-based parser's classifier.",
+    "reference_chunk_ids": [
+      1922
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-linear-complexity",
+    "question": "Why does greedy transition-based parsing typically have linear time complexity relative to the length of the sentence?",
+    "reference_chunk_ids": [
+      1920
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-maximum-spanning-tree",
+    "question": "What is a maximum spanning tree in the context of graph-based dependency parsing?",
+    "reference_chunk_ids": [
+      1931
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-graph-vs-transition",
+    "question": "How do graph-based dependency parsers differ from basic transition-based parsers in their handling of non-projective trees?",
+    "reference_chunk_ids": [
+      1930
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-biaffine-scoring",
+    "question": "Give an example of how the edge score is computed using the biaffine scoring function in a neural graph-based parser.",
+    "reference_chunk_ids": [
+      1933
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-cle-cleanup",
+    "question": "Why does the Chu-Liu-Edmonds algorithm sometimes require a recursive cleanup phase after the initial greedy edge selection?",
+    "reference_chunk_ids": [
+      1931,
+      1932
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-las",
+    "question": "What is the labeled attachment score (LAS) in the context of dependency parsing evaluation?",
+    "reference_chunk_ids": [
+      1940
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-las-uas",
+    "question": "How does labeled attachment score (LAS) differ from unlabeled attachment score (UAS)?",
+    "reference_chunk_ids": [
+      1940
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-las-uas-difference",
+    "question": "Give an example of a parsing error that would lower the labeled attachment score (LAS) but not affect the unlabeled attachment score (UAS).",
+    "reference_chunk_ids": [
+      1941
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-exact-match-pessimistic",
+    "question": "Why is exact match (EM) considered a pessimistic and often insufficiently fine-grained metric for guiding the development of dependency parsers?",
+    "reference_chunk_ids": [
+      1940
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-relation-extraction",
+    "question": "What is relation extraction in the context of information extraction?",
+    "reference_chunk_ids": [
+      2010
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-structured-vs-unstructured",
+    "question": "How do relations extracted from text, such as part-of or employs, differ from the raw unstructured text itself in their utility?",
+    "reference_chunk_ids": [
+      2010,
+      2011
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-semantic-relation",
+    "question": "Give an example of a semantic relation and the named entity types it involves, such as those found in the ACE or UMLS datasets.",
+    "reference_chunk_ids": [
+      2011,
+      2012
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-knowledge-graphs",
+    "question": "Why are datasets of structured relational knowledge, such as knowledge graphs, useful for search engines?",
+    "reference_chunk_ids": [
+      2010
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-distant-supervision",
+    "question": "What is distant supervision in the context of training relation extraction systems?",
+    "reference_chunk_ids": [
+      2024
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-bootstrapping-openie",
+    "question": "How does semisupervised relation extraction via bootstrapping differ from purely unsupervised relation extraction (Open IE) in terms of starting information?",
+    "reference_chunk_ids": [
+      2023,
+      2025
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-hearst-pattern",
+    "question": "Give an example of a lexico-syntactic pattern (Hearst pattern) used to extract hypernym relations.",
+    "reference_chunk_ids": [
+      2021
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-distant-supervision-features",
+    "question": "Why is distant supervision able to use very rich features that are conjunctions of individual features, unlike some other methods?",
+    "reference_chunk_ids": [
+      2024
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-event-extraction",
+    "question": "What is the task of event extraction?",
+    "reference_chunk_ids": [
+      2030
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-light-verbs",
+    "question": "How do events introduced by light verbs (e.g., \"took a flight\") differ from events introduced by standard action verbs?",
+    "reference_chunk_ids": [
+      2030,
+      2031
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-noun-phrase-event",
+    "question": "Give an example of an event mention that is introduced by a noun phrase rather than a verb.",
+    "reference_chunk_ids": [
+      2031
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-event-attributes",
+    "question": "Why must event extraction systems also extract attributes like the aspect, tense, and modality of an event?",
+    "reference_chunk_ids": [
+      2031
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-interval-algebra",
+    "question": "What is the interval algebra developed by Allen used for in temporal representation?",
+    "reference_chunk_ids": [
+      2040
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-stative-activity",
+    "question": "How do stative expressions differ from activity expressions in terms of their temporal contour?",
+    "reference_chunk_ids": [
+      2050,
+      2051
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-reichenbach-reference",
+    "question": "Give an example showing how Reichenbach's reference point separates the utterance time, the event time, and the reference time for the past perfect tense.",
+    "reference_chunk_ids": [
+      2041,
+      2042
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-aspect-context",
+    "question": "Why is the classification of an event into an aspectual class (like activity vs. accomplishment) not solely governed by the verb used?",
+    "reference_chunk_ids": [
+      2051
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-temporal-normalization",
+    "question": "What is temporal normalization?",
+    "reference_chunk_ids": [
+      2072
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-absolute-relative-time",
+    "question": "How do absolute temporal expressions differ from relative temporal expressions?",
+    "reference_chunk_ids": [
+      2071
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-temporal-ambiguity",
+    "question": "Give an example of how a relative temporal expression like \"the weekend\" can refer to different dates depending on the tense of its governing verb.",
+    "reference_chunk_ids": [
+      2072,
+      2073
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-temporal-ordering-binary",
+    "question": "Why is the task of temporal ordering of events often modeled as a binary relation detection and classification task?",
+    "reference_chunk_ids": [
+      2074
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-template-filling",
+    "question": "What is template filling in the context of information extraction?",
+    "reference_chunk_ids": [
+      2080
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-template-vs-role-recognition",
+    "question": "How does template recognition differ from role-filler extraction within the standard machine learning paradigm for template filling?",
+    "reference_chunk_ids": [
+      2081
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-template-script",
+    "question": "Give an example of a stereotypical script or template, such as an airline fare raise attempt, and list its associated slots.",
+    "reference_chunk_ids": [
+      2080
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-coreference-template",
+    "question": "Why is coreference resolution often a necessary step when filling complex templates or merging partial templates?",
+    "reference_chunk_ids": [
+      2082
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-semantic-role",
+    "question": "What is a semantic role in natural language processing?",
+    "reference_chunk_ids": [
+      2110
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-agent-theme",
+    "question": "How does the AGENT thematic role differ from the THEME thematic role?",
+    "reference_chunk_ids": [
+      2110,
+      2111
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-experiencer",
+    "question": "Give an example of a sentence and identify the participant acting as the EXPERIENCER.",
+    "reference_chunk_ids": [
+      2111
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-semantic-role-utility",
+    "question": "Why are semantic roles useful for computational systems compared to just using surface string or parse tree representations?",
+    "reference_chunk_ids": [
+      2120
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-diathesis-alternation",
+    "question": "What is a diathesis alternation (or verb alternation)?",
+    "reference_chunk_ids": [
+      2121
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-thematic-grid",
+    "question": "How does the thematic grid (case frame) of a verb help deal with different surface realizations of arguments?",
+    "reference_chunk_ids": [
+      2120,
+      2121
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-dative-alternation",
+    "question": "Give an example of the dative alternation for the verb 'give'.",
+    "reference_chunk_ids": [
+      2121
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-generalize-surface-forms",
+    "question": "Why do semantic roles help generalize over different syntactic realizations of predicate arguments?",
+    "reference_chunk_ids": [
+      2120
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-proto-roles",
+    "question": "What are generalized semantic roles like PROTO-AGENT and PROTO-PATIENT?",
+    "reference_chunk_ids": [
+      2130,
+      2131
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-proto-vs-thematic",
+    "question": "How do proto-roles differ from traditional thematic roles like AGENT or THEME in how they are defined?",
+    "reference_chunk_ids": [
+      2130
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-instrument-fragmentation",
+    "question": "Give an example of how the INSTRUMENT role might be fragmented into more specific roles like intermediary and enabling instruments.",
+    "reference_chunk_ids": [
+      2130
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-thematic-definition-difficulty",
+    "question": "Why has it proved difficult to formally define traditional thematic roles like AGENT?",
+    "reference_chunk_ids": [
+      2130
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-propbank",
+    "question": "What is the Proposition Bank (PropBank)?",
+    "reference_chunk_ids": [
+      2140
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-propbank-framenet-scope",
+    "question": "How do semantic roles in PropBank differ from those in FrameNet regarding their scope and specificity?",
+    "reference_chunk_ids": [
+      2140,
+      2150
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-argm-modifier",
+    "question": "Give an example of an ArgM modifier used in PropBank to represent temporal adjunct meanings.",
+    "reference_chunk_ids": [
+      2141
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-verb-specific-roles",
+    "question": "Why does PropBank define semantic roles with respect to individual verb senses rather than using a universal set of thematic roles?",
+    "reference_chunk_ids": [
+      2140
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-frame",
+    "question": "What is a frame in the context of the FrameNet project?",
+    "reference_chunk_ids": [
+      2150,
+      2151
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-core-noncore-roles",
+    "question": "How do core roles in FrameNet differ from non-core roles?",
+    "reference_chunk_ids": [
+      2151
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-framenet-labeling",
+    "question": "Give an example of a sentence labeled with frame elements from the 'change_position_on_a_scale' frame.",
+    "reference_chunk_ids": [
+      2152
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-frame-relations",
+    "question": "Why does FrameNet explicitly code relationships between frames, such as causation or inheritance?",
+    "reference_chunk_ids": [
+      2153
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-srl",
+    "question": "What is the task of semantic role labeling (SRL)?",
+    "reference_chunk_ids": [
+      2160
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-neural-bio-vs-feature",
+    "question": "How does a simple neural approach treating SRL as a BIO sequence labeling task differ from a classic feature-based classification approach?",
+    "reference_chunk_ids": [
+      2161,
+      2163
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-srl-path-feature",
+    "question": "Give an example of a feature used in a feature-based SRL algorithm, such as the syntactic path feature.",
+    "reference_chunk_ids": [
+      2162
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-srl-global-optimization",
+    "question": "Why do feature-based SRL systems often use a global optimization or re-ranking step rather than just classifying each argument locally and independently?",
+    "reference_chunk_ids": [
+      2161
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-selectional-restriction",
+    "question": "What is a selectional restriction?",
+    "reference_chunk_ids": [
+      2170
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-association-vs-probability",
+    "question": "How does the concept of selectional association differ from simple conditional probability when measuring selectional preferences?",
+    "reference_chunk_ids": [
+      2172,
+      2173
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-wordnet-restriction",
+    "question": "Give an example of how a selectional restriction might be represented and enforced using WordNet synsets.",
+    "reference_chunk_ids": [
+      2171
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-soft-constraints",
+    "question": "Why are selectional preferences generally modeled as soft constraints rather than strict constraints in modern NLP systems?",
+    "reference_chunk_ids": [
+      2171,
+      2172
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-primitive-decomposition",
+    "question": "What is primitive decomposition (or componential analysis) of predicates?",
+    "reference_chunk_ids": [
+      2180
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-cd-vs-thematic",
+    "question": "How does conceptual dependency (CD) differ from thematic role models in its approach to representing verbal predicates?",
+    "reference_chunk_ids": [
+      2181
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-kill-decomposition",
+    "question": "Give an example of how the meaning of the verb 'kill' might be represented using primitive decomposition.",
+    "reference_chunk_ids": [
+      2180
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-decomposition-utility",
+    "question": "Why might primitive decomposition be used to represent the underlying semantic commonality between different verbal alternations?",
+    "reference_chunk_ids": [
+      2180,
+      2181
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-basic-emotions",
+    "question": "What are basic emotions in the context of affective science?",
+    "reference_chunk_ids": [
+      2210
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-atomic-vs-dimensional",
+    "question": "How does the view of emotions as fixed atomic units differ from the view of emotion as a continuous 2D or 3D space?",
+    "reference_chunk_ids": [
+      2210,
+      2211
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-ekman-emotion",
+    "question": "Give an example of an emotion from Ekman's proposed 6 universally present basic emotions.",
+    "reference_chunk_ids": [
+      2210
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-valence-sentiment",
+    "question": "Why is the valence dimension in 3D emotion models often used directly as a measure of sentiment in NLP?",
+    "reference_chunk_ids": [
+      2211
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-general-inquirer",
+    "question": "What is the General Inquirer lexicon?",
+    "reference_chunk_ids": [
+      2220
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-binary-vs-vad",
+    "question": "How do basic binary sentiment lexicons differ from lexicons like the NRC VAD lexicon?",
+    "reference_chunk_ids": [
+      2220,
+      2221
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-liwc-category",
+    "question": "Give an example of a lexical category found in the LIWC (Linguistic Inquiry and Word Count) lexicon other than positive or negative emotion.",
+    "reference_chunk_ids": [
+      2223
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-concrete-abstract",
+    "question": "Why might the distinction between concrete words (like 'banana') and abstract words (like 'belief') be a useful feature for various psychological or NLP tasks?",
+    "reference_chunk_ids": [
+      2224
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-best-worst-scaling",
+    "question": "What is best-worst scaling in the context of crowdsourcing lexicon annotations?",
+    "reference_chunk_ids": [
+      2231
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-synonym-priming",
+    "question": "How does providing a multiple-choice synonym question help prime an annotator compared to providing a formal sense definition?",
+    "reference_chunk_ids": [
+      2230
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-best-worst-question",
+    "question": "Give an example of a question format used in best-worst scaling for annotating the valence of a word.",
+    "reference_chunk_ids": [
+      2231
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-split-half-reliability",
+    "question": "Why do researchers often use split-half reliability to evaluate the agreement between annotations in crowdsourced lexicons?",
+    "reference_chunk_ids": [
+      2232
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-semantic-axis",
+    "question": "What is the semantic axis method for inducing affect lexicons?",
+    "reference_chunk_ids": [
+      2240
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-axis-vs-propagation",
+    "question": "How does the Turney and Littman algorithm using semantic axes differ from the label propagation (SentProp) method on lexical graphs?",
+    "reference_chunk_ids": [
+      2240,
+      2242
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-morphological-negation",
+    "question": "Give an example of how morphological negation (e.g., adequate/inadequate) can be used as a syntactic cue for opposite polarity in lexicon induction.",
+    "reference_chunk_ids": [
+      2244
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-domain-seed-words",
+    "question": "Why is it often necessary to choose different seed words for different genres (e.g., general vs. Twitter vs. Finance) when bootstrapping a sentiment lexicon?",
+    "reference_chunk_ids": [
+      2240
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-dirichlet-prior",
+    "question": "What is the log odds ratio informative Dirichlet prior method used for in lexicon creation?",
+    "reference_chunk_ids": [
+      2252
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-review-stars-vs-seeds",
+    "question": "How does using review star ratings as a supervision signal differ from using binary positive/negative seed sets to learn word sentiment distributions?",
+    "reference_chunk_ids": [
+      2250
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-unexpected-sentiment-word",
+    "question": "Give an example of a word category (e.g., first-person plurals) that is heavily associated with 1-star restaurant reviews despite not being an obvious sentiment word.",
+    "reference_chunk_ids": [
+      2254
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-log-odds-flaw",
+    "question": "Why do simple log-likelihood or log odds methods struggle with very rare words when comparing frequencies between two corpora?",
+    "reference_chunk_ids": [
+      2252
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-entity-centric-affect",
+    "question": "What is the goal of entity-centric affect analysis?",
+    "reference_chunk_ids": [
+      2280
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-entity-vs-document-affect",
+    "question": "How does entity-centric affect analysis differ from document-level sentiment classification?",
+    "reference_chunk_ids": [
+      2280
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-entity-coreference",
+    "question": "Give an example of how coreference resolution is used when calculating the overall affect score for a specific entity mentioned multiple times in a document.",
+    "reference_chunk_ids": [
+      2280
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-contextual-embeddings",
+    "question": "Why do entity-centric models often use contextual embeddings (like BERT) rather than static embeddings to predict affect scores for an entity mention?",
+    "reference_chunk_ids": [
+      2280
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-connotation-frame",
+    "question": "What is a connotation frame?",
+    "reference_chunk_ids": [
+      2290
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-connotation-vs-affective-lexicon",
+    "question": "How does a connotation frame lexicon differ from a standard affective lexicon regarding grammatical structure?",
+    "reference_chunk_ids": [
+      2290
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-power-differential",
+    "question": "Give an example of how the verb 'implore' expresses a power differential between its agent and theme arguments in a connotation frame.",
+    "reference_chunk_ids": [
+      2291
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-writer-sympathy",
+    "question": "Why can verbs like 'survive' and 'violate' convey the writer's sympathy or antagonism toward specific arguments in a sentence?",
+    "reference_chunk_ids": [
+      2290
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-anaphora",
+    "question": "What is anaphora in the context of coreference resolution?",
+    "reference_chunk_ids": [
+      2310
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-discourse-new-old",
+    "question": "How does a discourse-new entity differ from a discourse-old entity?",
+    "reference_chunk_ids": [
+      2312
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-pleonastic-pronoun",
+    "question": "Give an example of a pleonastic or expletive pronoun that does not refer to a discourse entity.",
+    "reference_chunk_ids": [
+      2313
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-pronoun-salience",
+    "question": "Why does the use of a pronoun generally indicate that its referent has a high degree of salience or activation in the discourse model?",
+    "reference_chunk_ids": [
+      2312
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-coreference-resolution",
+    "question": "What is the task of coreference resolution?",
+    "reference_chunk_ids": [
+      2320
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-singletons",
+    "question": "How do datasets that annotate singletons differ from datasets like OntoNotes that do not, and how does this affect task difficulty?",
+    "reference_chunk_ids": [
+      2321
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-mention-filtering",
+    "question": "Give an example of a common heuristic rule used in first-pass mention detection to filter out non-referential noun phrases.",
+    "reference_chunk_ids": [
+      2330,
+      2331
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-hard-filtering-flaw",
+    "question": "Why is hard filtering of mentions based solely on a strict anaphoricity classifier threshold often problematic for overall coreference performance?",
+    "reference_chunk_ids": [
+      2332
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-mention-pair",
+    "question": "What is the mention-pair architecture for coreference resolution?",
+    "reference_chunk_ids": [
+      2340
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-mention-rank-vs-pair",
+    "question": "How does the mention-rank architecture differ from the mention-pair architecture in terms of comparing candidate antecedents?",
+    "reference_chunk_ids": [
+      2341
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-feature-based-coref",
+    "question": "Give an example of a lexical feature commonly used in feature-based coreference classifiers, such as exact string match or head word agreement.",
+    "reference_chunk_ids": [
+      2351,
+      2352
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-entity-based-models",
+    "question": "Why do entity-based models theoretically hold an advantage over mention-based models when resolving coreference?",
+    "reference_chunk_ids": [
+      2342,
+      2343
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-dummy-mention",
+    "question": "What is the purpose of the dummy mention (epsilon) in a mention-ranking algorithm?",
+    "reference_chunk_ids": [
+      2341,
+      2360
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-end-to-end-vs-pipeline",
+    "question": "How does an end-to-end neural coreference model differ from a traditional pipeline model that uses a separate mention detection step?",
+    "reference_chunk_ids": [
+      2332,
+      2360
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-attention-head-word",
+    "question": "Give an example of how the attention mechanism is used to compute a representation for the syntactic head-word of a span in a neural coreference model.",
+    "reference_chunk_ids": [
+      2361
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-mention-ranking-loss",
+    "question": "Why does the loss function for training a mention-ranking model optimize the sum of the probabilities of all legal antecedents in a gold cluster rather than a single 'correct' antecedent?",
+    "reference_chunk_ids": [
+      2363
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-entity-linking",
+    "question": "What is entity linking (or wikification)?",
+    "reference_chunk_ids": [
+      2370
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-entity-linking-vs-coref",
+    "question": "How does entity linking differ from coreference resolution?",
+    "reference_chunk_ids": [
+      2370
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-anchor-dictionary",
+    "question": "Give an example of how anchor dictionaries are used in entity mention detection and disambiguation.",
+    "reference_chunk_ids": [
+      2371
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-tagme-disambiguation",
+    "question": "Why do algorithms like TAGME use both a prior probability and a relatedness/coherence score when disambiguating an entity mention?",
+    "reference_chunk_ids": [
+      2371
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-winograd-schema",
+    "question": "What is the Winograd Schema Challenge?",
+    "reference_chunk_ids": [
+      2390
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-muc-vs-b3",
+    "question": "How does the link-based MUC F-measure differ from the mention-based B3 metric in evaluating coreference systems?",
+    "reference_chunk_ids": [
+      2380
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-winograd-schema",
+    "question": "Give an example of a Winograd Schema problem where the correct pronoun antecedent changes based on a single word difference.",
+    "reference_chunk_ids": [
+      2390,
+      2391
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-winograd-world-knowledge",
+    "question": "Why do Winograd Schema problems typically require world knowledge or common-sense reasoning to solve?",
+    "reference_chunk_ids": [
+      2390
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-winobias",
+    "question": "What does the WinoBias dataset measure?",
+    "reference_chunk_ids": [
+      23100
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-gender-stereotypes",
+    "question": "How do coreference system performances differ when resolving pronouns consistent with gender-stereotypical occupations versus those inconsistent with stereotypes?",
+    "reference_chunk_ids": [
+      23101
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-anti-stereotypical-coref",
+    "question": "Give an example of a coreference sentence that exhibits anti-stereotypical gender occupation roles.",
+    "reference_chunk_ids": [
+      23101
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-gender-swapped-dataset",
+    "question": "Why might generating a gender-swapped training dataset help in reducing gender bias in coreference systems?",
+    "reference_chunk_ids": [
+      23101
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-coherence-relation",
+    "question": "What is a coherence relation in the context of discourse?",
+    "reference_chunk_ids": [
+      2410
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-nucleus-satellite",
+    "question": "How does the nucleus differ from the satellite in Rhetorical Structure Theory (RST)?",
+    "reference_chunk_ids": [
+      2411
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-discourse-connective",
+    "question": "Give an example of a discourse connective used to signal relations in the Penn Discourse TreeBank (PDTB).",
+    "reference_chunk_ids": [
+      2412
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-edu-analogy",
+    "question": "Why are Elementary Discourse Units (EDUs) in RST considered analogous to constituents in sentence syntax?",
+    "reference_chunk_ids": [
+      2411,
+      2421
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-discourse-parsing",
+    "question": "What is discourse structure parsing?",
+    "reference_chunk_ids": [
+      2420
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-shallow-vs-rst",
+    "question": "How does shallow discourse parsing (as performed with PDTB) differ from full RST discourse parsing in terms of the structures built?",
+    "reference_chunk_ids": [
+      2423
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-shift-reduce-action",
+    "question": "Give an example of a shift or reduce action used by a shift-reduce parser to build an RST discourse tree.",
+    "reference_chunk_ids": [
+      2422
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-connective-wsd",
+    "question": "Why is the task of disambiguating discourse connectives often treated as a special case of word sense disambiguation?",
+    "reference_chunk_ids": [
+      2423
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-backward-center",
+    "question": "What is the backward-looking center in Centering Theory?",
+    "reference_chunk_ids": [
+      2431
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-entity-grid-vs-centering",
+    "question": "How does the Entity Grid model differ from Centering Theory in its approach to capturing entity-based coherence?",
+    "reference_chunk_ids": [
+      2432
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-local-entity-transition",
+    "question": "Give an example of a local entity transition represented in an entity grid, such as the [S -] transition.",
+    "reference_chunk_ids": [
+      2432
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-centering-continue",
+    "question": "Why is a text considered more coherent in Centering Theory if adjacent sentences have a CONTINUE transition rather than repeatedly shifting centers?",
+    "reference_chunk_ids": [
+      2431
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-lexical-cohesion",
+    "question": "What is lexical cohesion in the context of topical coherence?",
+    "reference_chunk_ids": [
+      2440
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-insertion-vs-discrimination",
+    "question": "How does the sentence insertion task differ from the sentence order discrimination task when evaluating coherence models?",
+    "reference_chunk_ids": [
+      2433
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-self-supervision-coherence",
+    "question": "Give an example of how self-supervision is used to train a neural coherence model by comparing natural discourses with scrambled ones.",
+    "reference_chunk_ids": [
+      2441
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-lsa-cosine",
+    "question": "Why did early models like LSA Coherence use the cosine similarity between sentence embeddings as a measure of coherence?",
+    "reference_chunk_ids": [
+      2440
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-argumentation-mining",
+    "question": "What is argumentation mining?",
+    "reference_chunk_ids": [
+      2451
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-argument-vs-local-coherence",
+    "question": "How does the global structure of a persuasive essay's argument differ from the more local coherence described by standard coherence relations?",
+    "reference_chunk_ids": [
+      2451
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-argumentative-zoning",
+    "question": "Give an example of a rhetorical goal category used in the argumentative zoning model for scientific discourse.",
+    "reference_chunk_ids": [
+      2452
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-claims-premises",
+    "question": "Why do argument mining algorithms often include classifiers specifically to distinguish between claims and premises?",
+    "reference_chunk_ids": [
+      2451
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "def-endpointing",
+    "question": "What is endpointing (or end-point detection) in the context of spoken language models?",
+    "reference_chunk_ids": [
+      2511
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-subdialogue-main",
+    "question": "How does a subdialogue (or side sequence) differ from the main adjacency pair sequence in a conversation?",
+    "reference_chunk_ids": [
+      2514
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-directive-speech-act",
+    "question": "Give an example of a speech act classified as a 'directive', such as asking a question to get an answer.",
+    "reference_chunk_ids": [
+      2512
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-grounding-necessity",
+    "question": "Why is grounding a necessary component for achieving mutual understanding in human conversation?",
+    "reference_chunk_ids": [
+      2513
+    ],
+    "category": "explanation"
+  },
+  {
+    "id": "comp-initiative-types",
+    "question": "How does a system-initiative dialogue system differ from a mixed-initiative dialogue system?",
+    "reference_chunk_ids": [
+      2515
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "def-dialogue-act",
+    "question": "What is a dialogue act?",
+    "reference_chunk_ids": [
+      2520
+    ],
+    "category": "definition"
+  },
+  {
+    "id": "comp-forward-backward-looking",
+    "question": "How does a forward-looking function differ from a backward-looking function in the DAMSL dialogue act architecture?",
+    "reference_chunk_ids": [
+      2520,
+      2521
+    ],
+    "category": "comparison"
+  },
+  {
+    "id": "ex-backward-looking-act",
+    "question": "Give an example of a backward-looking dialogue act, such as an acknowledgment or an answer to a question.",
+    "reference_chunk_ids": [
+      2521
+    ],
+    "category": "example"
+  },
+  {
+    "id": "exp-domain-specific-tags",
+    "question": "Why are domain-specific tags like SUGGEST or ACCEPT often used alongside general dialogue acts in task-based dialogue systems?",
+    "reference_chunk_ids": [
+      2520
+    ],
+    "category": "explanation"
+  }
+]

@@ -33,4 +33,4 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 
 _has_groq_key = bool(os.getenv("GROQ_API_KEY"))
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq" if _has_groq_key else "ollama")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
