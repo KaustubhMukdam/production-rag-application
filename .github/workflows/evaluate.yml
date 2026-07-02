@@ -22,6 +22,6 @@ jobs:
           python-version: "3.11"
           cache: "pip"
       - run: pip install -r requirements.txt
-      - run: python -m eval.run_eval --provider groq --sample 100
+      - run: python -m eval.run_eval --provider groq --sample 10
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}

@@ -3,6 +3,8 @@ import os
 import re
 import requests
 
+from app.rate_limit import groq_limiter
+
 JUDGE_MODEL = "llama-3.1-8b-instant"
 
 
@@ -47,32 +49,25 @@ def _parse_json(text: str):
 class FaithfulnessScorer:
     def __init__(self):
         self.api_key = os.getenv("GROQ_API_KEY")
-        self._last_call = 0.0
 
     def _call(self, prompt: str) -> str:
-        import time
-        elapsed = time.time() - self._last_call
-        if elapsed < 2.0:
-            time.sleep(2.0 - elapsed)
         for attempt in range(3):
             try:
+                groq_limiter.acquire()
                 resp = requests.post(
                     "https://api.groq.com/openai/v1/chat/completions",
                     headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
                     json={"model": JUDGE_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 0},
                 )
                 if resp.status_code == 429:
-                    time.sleep(2 ** (attempt + 1))
                     continue
                 resp.raise_for_status()
-                return resp.json()["choices"][0]["message"]["content"]
+                return resp.json()["choices"][0]["message"]["content"] or ""
             except requests.exceptions.HTTPError:
-                time.sleep(2 ** (attempt + 1))
+                continue
             except Exception as e:
                 print(f"Exception on Groq API call: {e}")
                 return ""
-            finally:
-                self._last_call = time.time()
         return ""
 
     def _extract_claims(self, answer: str) -> list[str]:
@@ -103,8 +98,16 @@ class FaithfulnessScorer:
             return 0.0
         claims = self._extract_claims(answer)
         if not claims:
+            import time
+            time.sleep(5)
+            claims = self._extract_claims(answer)
+        if not claims:
             return 0.0
         verdicts = self._verify_claims(claims, contexts)
+        if not verdicts:
+            import time
+            time.sleep(5)
+            verdicts = self._verify_claims(claims, contexts)
         if not verdicts:
             return 0.0
         return sum(1 for v in verdicts if v) / len(verdicts)

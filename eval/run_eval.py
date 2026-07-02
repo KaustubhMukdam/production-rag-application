@@ -1,12 +1,10 @@
 import argparse
 import json
 import random
-import time
 
 from app.pipeline import Pipeline
 from app.ingestion.loader import load_documents
 from app.generation.generator import create_generator
-from app.generation.groq import GroqError
 from eval.faithfulness import FaithfulnessScorer
 from eval.thresholds import FAITHFULNESS_MIN
 
@@ -24,28 +22,19 @@ def _run_pipeline(questions: list, provider: str):
     print("  Loading and indexing documents...")
     docs = load_documents()
     pipeline = Pipeline()
-    if provider == "groq":
-        from app.generation.groq import GroqGenerator
-        pipeline.generator = GroqGenerator(max_retries=5, fallback=None)
-    else:
-        pipeline.generator = create_generator(provider)
+    pipeline.generator = create_generator(provider)
     pipeline.index_documents(docs)
 
     results = []
     total = len(questions)
     for i, q in enumerate(questions):
-        try:
-            result = pipeline.query(q["question"])
-            results.append({
-                "question": result["question"],
-                "answer": result["answer"],
-                "contexts": [c["text"] for c in result["retrieved_chunks"]],
-            })
-            print(f"  [{i+1}/{total}] {q['id']}")
-        except GroqError as e:
-            print(f"  [{i+1}/{total}] {q['id']} SKIPPED ({e})")
-        if provider == "groq":
-            time.sleep(3)
+        result = pipeline.query(q["question"])
+        results.append({
+            "question": result["question"],
+            "answer": result["answer"],
+            "contexts": [c["text"] for c in result["retrieved_chunks"]],
+        })
+        print(f"  [{i+1}/{total}] {q['id']}")
 
     return results
 

@@ -5,8 +5,8 @@ import requests
 from app.generation.ollama import OllamaGenerator
 from app.generation.prompts import build_prompt
 from app.config import GROQ_MODEL
+from app.rate_limit import groq_limiter
 
-_RETRYABLE_STATUSES = {429, 500, 502, 503}
 _UNSET = object()
 
 
@@ -32,14 +32,17 @@ class GroqGenerator:
                 return self._groq_call(query, context_chunks, strict=strict)
             except requests.HTTPError as e:
                 status = e.response.status_code if e.response is not None else 0
-                if status in _RETRYABLE_STATUSES and attempt < self.max_retries - 1:
-                    wait = 2 ** (attempt + 1)
-                    import logging
-                    logging.warning(f"Groq {status}, retry {attempt + 1}/{self.max_retries} in {wait}s")
-                    time.sleep(wait)
-                    last_error = e
-                    continue
                 last_error = e
+                if status == 429:
+                    import logging
+                    wait = 2 ** (attempt + 1)
+                    logging.warning(f"Groq 429, retry {attempt + 1}/{self.max_retries} in {wait}s")
+                    groq_limiter.acquire()
+                    time.sleep(wait)
+                    continue
+                if status in {500, 502, 503} and attempt < self.max_retries - 1:
+                    time.sleep(2 ** (attempt + 1))
+                    continue
                 break
             except requests.RequestException as e:
                 last_error = e
@@ -51,6 +54,7 @@ class GroqGenerator:
         return self._fallback(query, context_chunks, f"Groq error after {self.max_retries} tries: {last_error}", strict=strict)
 
     def _groq_call(self, query: str, context_chunks: list, strict: bool = False) -> str:
+        groq_limiter.acquire()
         prompt = build_prompt(query, context_chunks, strict=strict)
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",

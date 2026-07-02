@@ -11,7 +11,7 @@ class QdrantHybridRetriever:
         url: str = QDRANT_URL,
         collection_name: str = QDRANT_COLLECTION,
     ):
-        self._client = QdrantClient(url, check_compatibility=False)
+        self._client = QdrantClient(url, check_compatibility=False, timeout=60.0)
         self._collection_name = collection_name
 
     def index(self, dense_vecs: np.ndarray, sparse_vecs: List[dict], chunks: List[dict]) -> None:
