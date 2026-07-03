@@ -15,12 +15,23 @@ jobs:
         image: qdrant/qdrant:latest
         ports:
           - 6333:6333
+      ollama:
+        image: ollama/ollama:latest
+        ports:
+          - 11434:11434
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
+      - name: Pull Ollama model
+        run: |
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then break; fi
+            sleep 2
+          done
+          docker exec "$(docker ps -q -f ancestor=ollama/ollama)" ollama pull llama3.2:3b
       - run: pip install -r requirements.txt
       - run: python -m eval.run_eval --provider groq --sample 10
         env:

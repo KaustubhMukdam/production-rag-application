@@ -22,5 +22,5 @@ class TokenBucket:
         self.tokens = self.tokens + wait * self.rate - tokens
 
 
-# Shared instance: 30 RPM, burst of 3
-groq_limiter = TokenBucket(rate=0.5, capacity=3)
+# Shared instance: 30 RPM, burst of 6 (covers citation retries + judge)
+groq_limiter = TokenBucket(rate=0.5, capacity=6)

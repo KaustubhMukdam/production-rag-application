@@ -32,17 +32,13 @@ class GroqGenerator:
                 return self._groq_call(query, context_chunks, strict=strict)
             except requests.HTTPError as e:
                 status = e.response.status_code if e.response is not None else 0
-                last_error = e
                 if status == 429:
-                    import logging
-                    wait = 2 ** (attempt + 1)
-                    logging.warning(f"Groq 429, retry {attempt + 1}/{self.max_retries} in {wait}s")
                     groq_limiter.acquire()
-                    time.sleep(wait)
                     continue
                 if status in {500, 502, 503} and attempt < self.max_retries - 1:
                     time.sleep(2 ** (attempt + 1))
                     continue
+                last_error = e
                 break
             except requests.RequestException as e:
                 last_error = e

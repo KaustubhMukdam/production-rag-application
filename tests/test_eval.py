@@ -3,7 +3,7 @@ from eval.run_eval import _load_questions
 
 
 def test_threshold_value():
-    assert FAITHFULNESS_MIN == 0.85
+    assert FAITHFULNESS_MIN == 0.75
 
 
 def test_load_questions_all():

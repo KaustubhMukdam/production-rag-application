@@ -60,28 +60,18 @@ def main():
 
     providers = ["groq", "ollama"] if args.provider == "both" else [args.provider]
 
-    all_scores = {}
+    print(f"\n{'='*40}")
     for provider in providers:
-        print(f"\n--- {provider} ---")
+        print(f"\n--- {provider} pipeline ---")
         results = _run_pipeline(questions, provider)
         score = _score(results)
-        all_scores[provider] = score
-        print(f"  Faithfulness: {score:.3f}")
+        print(f"  Faithfulness (Ollama judge): {score:.3f}")
 
-    print(f"\n{'='*40}")
-    print(f"{'Metric':<20} {'Groq':<10} {'Ollama':<10}")
-    print(f"{'='*40}")
-    groq_val = all_scores.get("groq", "—")
-    ollama_val = all_scores.get("ollama", "—")
-    print(f"{'faithfulness':<20} {str(groq_val):<10} {str(ollama_val):<10}")
-
-    groq_faith = all_scores.get("groq", 0)
-    if groq_faith >= FAITHFULNESS_MIN:
-        print(f"\nPASS: Groq faithfulness {groq_faith:.3f} >= {FAITHFULNESS_MIN}")
-        exit(0)
-    else:
-        print(f"\nFAIL: Groq faithfulness {groq_faith:.3f} < {FAITHFULNESS_MIN}")
-        exit(1)
+        if score >= FAITHFULNESS_MIN:
+            print(f"  PASS: {score:.3f} >= {FAITHFULNESS_MIN}")
+        else:
+            print(f"  FAIL: {score:.3f} < {FAITHFULNESS_MIN}")
+            exit(1)
 
 
 if __name__ == "__main__":

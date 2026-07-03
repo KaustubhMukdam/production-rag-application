@@ -1,11 +1,8 @@
 import json
-import os
 import re
 import requests
 
-from app.rate_limit import groq_limiter
-
-JUDGE_MODEL = "llama-3.1-8b-instant"
+OLLAMA_JUDGE_MODEL = "llama3.2:3b"
 
 
 def _find_top_level_list(text: str) -> str | None:
@@ -31,9 +28,7 @@ def _parse_json(text: str):
     matched = _find_top_level_list(text)
     if matched:
         text = matched
-    
     text = re.sub(r"//.*", "", text)
-    
     try:
         return json.loads(text)
     except json.JSONDecodeError:
@@ -47,37 +42,35 @@ def _parse_json(text: str):
 
 
 class FaithfulnessScorer:
-    def __init__(self):
-        self.api_key = os.getenv("GROQ_API_KEY")
-
-    def _call(self, prompt: str) -> str:
+    def _call_ollama(self, prompt: str) -> str:
         for attempt in range(3):
             try:
-                groq_limiter.acquire()
                 resp = requests.post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
-                    json={"model": JUDGE_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 0},
+                    "http://localhost:11434/api/generate",
+                    json={"model": OLLAMA_JUDGE_MODEL, "prompt": prompt, "temperature": 0, "stream": False},
+                    timeout=60,
                 )
-                if resp.status_code == 429:
-                    continue
                 resp.raise_for_status()
-                return resp.json()["choices"][0]["message"]["content"] or ""
-            except requests.exceptions.HTTPError:
-                continue
-            except Exception as e:
-                print(f"Exception on Groq API call: {e}")
-                return ""
+                return resp.json()["response"] or ""
+            except Exception:
+                if attempt < 2:
+                    import time
+                    time.sleep(1)
         return ""
+
+    def _call(self, prompt: str) -> str:
+        return self._call_ollama(prompt)
 
     def _extract_claims(self, answer: str) -> list[str]:
         prompt = (
-            "Decompose the following answer into atomic claims (one fact per claim). "
-            "Return a JSON list of strings. Do not explain.\n\n"
-            f"Answer: {answer}\n\nClaims:"
+            "Return ONLY a JSON array of strings. No other text.\n\n"
+            f"Decompose: {answer}"
         )
         result = self._call(prompt)
-        return _parse_json(result)
+        parsed = _parse_json(result)
+        if parsed:
+            return parsed
+        return [s.strip() for s in re.split(r'[.!?]+', answer) if len(s.strip()) > 10]
 
     def _verify_claims(self, claims: list[str], contexts: list[str]) -> list[bool]:
         ctx = "\n\n".join(contexts)
@@ -85,29 +78,30 @@ class FaithfulnessScorer:
         prompt = (
             f"Context:\n{ctx}\n\n"
             f"Claims:\n{numbered}\n\n"
-            "For each claim, determine if it is directly supported by the context. "
-            "Return a JSON array of booleans: true if supported, false if not. "
-            "Example: [true, false, true]\n\n"
-            "Result:"
+            "Return ONLY a JSON array of booleans: true if supported by context, false if not. "
+            "Example: [true, false, true]"
         )
         result = self._call(prompt)
-        return _parse_json(result)
+        parsed = _parse_json(result)
+        if parsed:
+            return parsed
+        # fallback: extract verdict per claim from English text
+        verdicts = []
+        for i in range(len(claims)):
+            m = re.search(rf'{i+1}[.)].*?(\bTrue\b|\bFalse\b|\bSupported\b|\bUnsupported\b|\bYes\b|\bNo\b)', result, re.DOTALL | re.IGNORECASE)
+            if m:
+                verdicts.append(m.group(1).lower() in ("true", "supported", "yes"))
+            else:
+                return []
+        return verdicts
 
     def score(self, answer: str, contexts: list[str]) -> float:
         if not answer.strip():
             return 0.0
         claims = self._extract_claims(answer)
         if not claims:
-            import time
-            time.sleep(5)
-            claims = self._extract_claims(answer)
-        if not claims:
             return 0.0
         verdicts = self._verify_claims(claims, contexts)
-        if not verdicts:
-            import time
-            time.sleep(5)
-            verdicts = self._verify_claims(claims, contexts)
         if not verdicts:
             return 0.0
         return sum(1 for v in verdicts if v) / len(verdicts)
