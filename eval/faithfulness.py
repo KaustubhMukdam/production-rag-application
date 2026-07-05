@@ -4,6 +4,33 @@ import requests
 
 OLLAMA_JUDGE_MODEL = "llama3.2:3b"
 
+_SYSTEM_JSON = "You are a precise JSON generator. Output ONLY valid JSON arrays. Never explain."
+
+
+def _call_ollama(prompt: str, model: str = OLLAMA_JUDGE_MODEL) -> str:
+    for attempt in range(3):
+        try:
+            resp = requests.post(
+                "http://localhost:11434/api/chat",
+                json={
+                    "model": model,
+                    "messages": [
+                        {"role": "system", "content": _SYSTEM_JSON},
+                        {"role": "user", "content": prompt},
+                    ],
+                    "temperature": 0,
+                    "stream": False,
+                },
+                timeout=60,
+            )
+            resp.raise_for_status()
+            return (resp.json()["message"]["content"] or "").strip()
+        except Exception:
+            if attempt < 2:
+                import time
+                time.sleep(1)
+    return ""
+
 
 def _find_top_level_list(text: str) -> str | None:
     start = text.find("[")
@@ -42,31 +69,14 @@ def _parse_json(text: str):
 
 
 class FaithfulnessScorer:
-    def _call_ollama(self, prompt: str) -> str:
-        for attempt in range(3):
-            try:
-                resp = requests.post(
-                    "http://localhost:11434/api/generate",
-                    json={"model": OLLAMA_JUDGE_MODEL, "prompt": prompt, "temperature": 0, "stream": False},
-                    timeout=60,
-                )
-                resp.raise_for_status()
-                return resp.json()["response"] or ""
-            except Exception:
-                if attempt < 2:
-                    import time
-                    time.sleep(1)
-        return ""
-
-    def _call(self, prompt: str) -> str:
-        return self._call_ollama(prompt)
-
     def _extract_claims(self, answer: str) -> list[str]:
         prompt = (
-            "Return ONLY a JSON array of strings. No other text.\n\n"
-            f"Decompose: {answer}"
+            "Return ONLY a JSON array of strings, each string is one factual claim "
+            "from the text below.\n\n"
+            f"Text: {answer}\n\n"
+            "JSON:"
         )
-        result = self._call(prompt)
+        result = _call_ollama(prompt)
         parsed = _parse_json(result)
         if parsed:
             return parsed
@@ -76,16 +86,17 @@ class FaithfulnessScorer:
         ctx = "\n\n".join(contexts)
         numbered = "\n".join(f"{i+1}. {c}" for i, c in enumerate(claims))
         prompt = (
+            "Return ONLY a JSON array of booleans: true if the claim is supported "
+            "by the context, false if not.\n\n"
             f"Context:\n{ctx}\n\n"
             f"Claims:\n{numbered}\n\n"
-            "Return ONLY a JSON array of booleans: true if supported by context, false if not. "
-            "Example: [true, false, true]"
+            "Example: [true, false, true]\n\n"
+            "JSON:"
         )
-        result = self._call(prompt)
+        result = _call_ollama(prompt)
         parsed = _parse_json(result)
         if parsed:
             return parsed
-        # fallback: extract verdict per claim from English text
         verdicts = []
         for i in range(len(claims)):
             m = re.search(rf'{i+1}[.)].*?(\bTrue\b|\bFalse\b|\bSupported\b|\bUnsupported\b|\bYes\b|\bNo\b)', result, re.DOTALL | re.IGNORECASE)
