@@ -1,3 +1,13 @@
+"""
+Eval scorers — Phase 4.
+
+Three Ollama-judge scorers:
+  FaithfulnessScorer     — unchanged from Phase 3
+  AnswerRelevancyScorer  — NEW: did the answer address the question?
+  ContextPrecisionScorer — NEW: what fraction of retrieved chunks were useful?
+
+All scorers use the shared _call_ollama / _parse_json helpers.
+"""
 import json
 import re
 import requests
@@ -44,7 +54,7 @@ def _find_top_level_list(text: str) -> str | None:
         elif c == "]":
             depth -= 1
             if depth == 0:
-                return text[start : i + 1]
+                return text[start: i + 1]
     return None
 
 
@@ -67,6 +77,10 @@ def _parse_json(text: str):
             print(f"Failed to parse JSON: {repr(text)}")
             return []
 
+
+# ---------------------------------------------------------------------------
+# FaithfulnessScorer (unchanged)
+# ---------------------------------------------------------------------------
 
 class FaithfulnessScorer:
     def _extract_claims(self, answer: str) -> list[str]:
@@ -99,7 +113,10 @@ class FaithfulnessScorer:
             return parsed
         verdicts = []
         for i in range(len(claims)):
-            m = re.search(rf'{i+1}[.)].*?(\bTrue\b|\bFalse\b|\bSupported\b|\bUnsupported\b|\bYes\b|\bNo\b)', result, re.DOTALL | re.IGNORECASE)
+            m = re.search(
+                rf'{i+1}[.)].*?(\bTrue\b|\bFalse\b|\bSupported\b|\bUnsupported\b|\bYes\b|\bNo\b)',
+                result, re.DOTALL | re.IGNORECASE,
+            )
             if m:
                 verdicts.append(m.group(1).lower() in ("true", "supported", "yes"))
             else:
@@ -116,3 +133,94 @@ class FaithfulnessScorer:
         if not verdicts:
             return 0.0
         return sum(1 for v in verdicts if v) / len(verdicts)
+
+
+# ---------------------------------------------------------------------------
+# AnswerRelevancyScorer (new)
+# ---------------------------------------------------------------------------
+
+class AnswerRelevancyScorer:
+    """Score how well the answer addresses the question (0–1).
+
+    Prompts the Ollama judge to rate relevance.  Falls back to 0.0 on any
+    parse failure so the eval run never crashes.
+    """
+
+    def score(self, question: str, answer: str) -> float:
+        """Return a relevancy score in [0.0, 1.0].
+
+        Args:
+            question: The original user question.
+            answer:   The generated answer to evaluate.
+
+        Returns:
+            Float in [0.0, 1.0].  0.0 if the answer is empty or the judge
+            fails to return parseable output.
+        """
+        if not answer.strip():
+            return 0.0
+
+        prompt = (
+            "Rate how well the answer responds to the question on a scale of 0 to 1.\n"
+            'Return ONLY a JSON object: {"score": <float between 0 and 1>}\n\n'
+            f"Question: {question}\n"
+            f"Answer: {answer}\n\n"
+            "JSON:"
+        )
+        raw = _call_ollama(prompt)
+        try:
+            data = json.loads(raw)
+            score = float(data.get("score", 0.0))
+            return max(0.0, min(1.0, score))
+        except Exception:
+            return 0.0
+
+
+# ---------------------------------------------------------------------------
+# ContextPrecisionScorer (new)
+# ---------------------------------------------------------------------------
+
+class ContextPrecisionScorer:
+    """Score what fraction of retrieved chunks were useful for answering.
+
+    Simplified Ragas Context Precision: no ground-truth required.
+    The Ollama judge decides per-chunk relevance.
+    """
+
+    def score(self, question: str, contexts: list[str]) -> float:
+        """Return the fraction of contexts judged relevant in [0.0, 1.0].
+
+        Args:
+            question: The original user question.
+            contexts: List of retrieved chunk texts.
+
+        Returns:
+            Float in [0.0, 1.0].  0.0 if contexts is empty or judge fails.
+        """
+        if not contexts:
+            return 0.0
+
+        # Truncate each chunk to 200 chars to keep the prompt manageable
+        numbered = "\n".join(f"{i+1}. {c[:200]}" for i, c in enumerate(contexts))
+        prompt = (
+            "For each numbered chunk below, output true if it is useful for answering "
+            "the question, false if not.\n"
+            "Return ONLY a JSON array of booleans, one per chunk.\n\n"
+            f"Question: {question}\n\n"
+            f"Chunks:\n{numbered}\n\n"
+            f"Example for {len(contexts)} chunk(s): "
+            f"[{', '.join(['true'] * len(contexts))}]\n\n"
+            "JSON:"
+        )
+        raw = _call_ollama(prompt)
+        parsed = _parse_json(raw)
+
+        if not parsed or not isinstance(parsed, list):
+            return 0.0
+
+        # Guard against the judge returning more verdicts than chunks
+        verdicts = parsed[:len(contexts)]
+        if not verdicts:
+            return 0.0
+
+        return sum(1 for v in verdicts if v) / len(contexts)

@@ -27,6 +27,11 @@ QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_COLLECTION = "slp3_chunks"
 
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+RERANK_GATE_THRESHOLD: float = float(os.getenv("RERANK_GATE_THRESHOLD", "0.0"))
+
+# API rate limiting (per-IP, applied to /query and /index)
+API_RATE_LIMIT_RPM: int = int(os.getenv("API_RATE_LIMIT_RPM", "10"))
+API_RATE_LIMIT_BURST: int = int(os.getenv("API_RATE_LIMIT_BURST", "3"))
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")

@@ -2,6 +2,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 import numpy as np
 
+from app.config import RERANK_GATE_THRESHOLD
+
 
 @pytest.fixture
 def sample_docs():
@@ -23,11 +25,13 @@ def _make_mock_pipeline():
     pipeline.embedder = mock_embedder
     pipeline.retriever = MagicMock()
     pipeline.retriever.retrieve.return_value = [
-        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "the cat sat on the mat", "score": 0.9}
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "the cat sat on the mat",
+         "score": 0.9, "page_number": 1, "section_header": "", "source_url": ""}
     ]
     mock_reranker = MagicMock()
     mock_reranker.rerank.return_value = [
-        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "the cat sat on the mat", "score": 0.9, "rerank_score": 8.5}
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "the cat sat on the mat",
+         "score": 0.9, "rerank_score": 8.5, "page_number": 1, "section_header": "", "source_url": ""}
     ]
     pipeline.reranker = mock_reranker
     mock_generator = MagicMock()
@@ -160,4 +164,88 @@ def test_pipeline_unparseable_twice_returns_unsupported(sample_docs):
     pipeline.index_documents(sample_docs)
     result = pipeline.query("query")
     assert "completely broken output" in result["answer"]
+    assert result["structured_answer"]["supported"] is False
+
+
+# ---------------------------------------------------------------------------
+# Confidence gate tests (Block B)
+# ---------------------------------------------------------------------------
+
+def test_pipeline_query_returns_gated_key_false_on_normal_flow():
+    """Every successful query must include gated=False in the response."""
+    pipeline = _make_mock_pipeline()
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Where is the cat?")
+    assert "gated" in result
+    assert result["gated"] is False
+
+
+def test_pipeline_confidence_gate_fires_when_score_below_threshold():
+    """Gate must fire when top rerank_score < RERANK_GATE_THRESHOLD."""
+    pipeline = _make_mock_pipeline()
+    pipeline.reranker.rerank.return_value = [
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "irrelevant",
+         "score": 0.1, "rerank_score": RERANK_GATE_THRESHOLD - 0.1,
+         "page_number": 1, "section_header": "", "source_url": ""}
+    ]
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Completely off-topic question")
+    assert result["gated"] is True
+
+
+def test_pipeline_confidence_gate_does_not_call_generator_when_gated():
+    """When the gate fires, the LLM generator must NOT be called."""
+    pipeline = _make_mock_pipeline()
+    pipeline.reranker.rerank.return_value = [
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "irrelevant",
+         "score": 0.1, "rerank_score": RERANK_GATE_THRESHOLD - 1.0,
+         "page_number": 1, "section_header": "", "source_url": ""}
+    ]
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    pipeline.query("Off-topic")
+    pipeline.generator.generate.assert_not_called()
+
+
+def test_pipeline_confidence_gate_passes_when_score_at_threshold():
+    """Gate must NOT fire when score equals exactly the threshold (inclusive)."""
+    pipeline = _make_mock_pipeline()
+    pipeline.reranker.rerank.return_value = [
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "the cat sat on the mat",
+         "score": 0.9, "rerank_score": RERANK_GATE_THRESHOLD,
+         "page_number": 1, "section_header": "", "source_url": ""}
+    ]
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Where is the cat?")
+    assert result["gated"] is False
+
+
+def test_pipeline_confidence_gate_passes_when_score_above_threshold():
+    pipeline = _make_mock_pipeline()
+    # rerank_score=8.5 in default mock is well above 0.0
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Where is the cat?")
+    assert result["gated"] is False
+    pipeline.generator.generate.assert_called()
+
+
+def test_pipeline_confidence_gate_fires_on_empty_reranked_list():
+    """No chunks returned → gate fires → generator not called."""
+    pipeline = _make_mock_pipeline()
+    pipeline.reranker.rerank.return_value = []
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Where is the cat?")
+    assert result["gated"] is True
+    pipeline.generator.generate.assert_not_called()
+
+
+def test_pipeline_gated_answer_is_not_supported():
+    """A gated response must have supported=False in structured_answer."""
+    pipeline = _make_mock_pipeline()
+    pipeline.reranker.rerank.return_value = [
+        {"doc_id": "test_doc", "chunk_id": "test_doc_0", "text": "x",
+         "score": 0.1, "rerank_score": -5.0,
+         "page_number": 1, "section_header": "", "source_url": ""}
+    ]
+    pipeline.index_documents([{"doc_id": "test_doc", "text": "the cat sat on the mat in the living room"}])
+    result = pipeline.query("Off-topic")
     assert result["structured_answer"]["supported"] is False
