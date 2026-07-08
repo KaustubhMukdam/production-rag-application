@@ -2,7 +2,7 @@ from typing import List
 import numpy as np
 from qdrant_client import QdrantClient, models
 
-from app.config import EMBEDDING_DIM, QDRANT_URL, QDRANT_COLLECTION, TOP_N
+from app.config import EMBEDDING_DIM, QDRANT_URL, QDRANT_COLLECTION, QDRANT_API_KEY, TOP_N
 
 
 class QdrantHybridRetriever:
@@ -10,8 +10,14 @@ class QdrantHybridRetriever:
         self,
         url: str = QDRANT_URL,
         collection_name: str = QDRANT_COLLECTION,
+        api_key: str | None = QDRANT_API_KEY,
     ):
-        self._client = QdrantClient(url, check_compatibility=False, timeout=60.0)
+        self._client = QdrantClient(
+            url,
+            api_key=api_key,          # None → no auth header (local/in-memory)
+            check_compatibility=False,
+            timeout=60.0,
+        )
         self._collection_name = collection_name
 
     def index(self, dense_vecs: np.ndarray, sparse_vecs: List[dict], chunks: List[dict]) -> None:

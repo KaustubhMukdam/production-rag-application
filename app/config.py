@@ -25,6 +25,7 @@ TOP_N = 20
 
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_COLLECTION = "slp3_chunks"
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")  # None when running locally (no auth needed)
 
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 RERANK_GATE_THRESHOLD: float = float(os.getenv("RERANK_GATE_THRESHOLD", "0.0"))
