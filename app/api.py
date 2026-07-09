@@ -157,11 +157,21 @@ async def lifespan(app: FastAPI):
     # Shutdown: nothing to clean up (Qdrant client manages its own connection)
 
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(
     title="Production RAG API",
     description="Ask-my-docs system with hybrid retrieval, reranking, and citation enforcement.",
     version="4.0.0",
     lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 app.add_middleware(PerIpRateLimitMiddleware)
 

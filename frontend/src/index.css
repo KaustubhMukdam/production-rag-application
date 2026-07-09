@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: #16130d;
+    color: #e9e1d7;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar — warm, minimal */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #16130d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4d4637;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #99907e;
+  }
+
+  /* Material Symbols sizing */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+    font-size: 18px;
+    line-height: 1;
+    vertical-align: middle;
+    user-select: none;
+  }
+}
+
+@layer utilities {
+  /* Typewriter cursor */
+  .cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #e6c364;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 0.8s step-end infinite;
+  }
+
+  /* Gate card amber pulse — fires twice then stops */
+  .gate-pulse {
+    animation: gateFlash 0.6s ease-in-out 2;
+  }
+}

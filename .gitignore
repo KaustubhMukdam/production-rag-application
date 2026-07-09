@@ -16,3 +16,5 @@ __pycache__/
 .env
 docs/images
 docs/implementation_plan-p4.md
+docs/design.md
+design/
