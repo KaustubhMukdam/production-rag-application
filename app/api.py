@@ -137,19 +137,26 @@ async def lifespan(app: FastAPI):
     app.state.pipeline = pipeline
 
     try:
-        docs = load_documents()
-        if docs:
-            pipeline.index_documents(docs)
+        if pipeline._indexed:
+            # Qdrant Cloud already has data — no need to re-embed on every restart
             logger.info(
-                "Startup indexing complete — %d document(s), %d chunk(s).",
-                len(docs),
+                "Startup: Qdrant has %d existing chunks. Ready to serve queries.",
                 pipeline.retriever.size,
             )
         else:
-            logger.warning(
-                "No documents found at startup. "
-                "Call POST /index after adding PDFs to data/pdfs/."
-            )
+            docs = load_documents()
+            if docs:
+                pipeline.index_documents(docs)
+                logger.info(
+                    "Startup indexing complete — %d document(s), %d chunk(s).",
+                    len(docs),
+                    pipeline.retriever.size,
+                )
+            else:
+                logger.warning(
+                    "No documents found at startup. "
+                    "Call POST /index after adding PDFs to data/pdfs/."
+                )
     except Exception as exc:
         logger.error("Startup indexing failed: %s", exc)
 

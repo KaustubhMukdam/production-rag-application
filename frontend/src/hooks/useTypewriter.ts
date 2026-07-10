@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Animates text word-by-word at the given speed (ms per word).
+ * Animates text word-by-word using recursive setTimeout (NOT setInterval).
  *
- * @param text    - Full text to display.
- * @param enabled - When false the full text is shown immediately (used for
- *                  older queries that have already been animated).
- * @param speed   - Milliseconds between each word. Default 14ms ≈ fast streaming feel.
+ * Why setTimeout over setInterval:
+ *   setInterval captures `idx` by reference — by the time React batches and
+ *   executes the state-updater callback, `idx` may have advanced past
+ *   words.length, giving `words[idx] === undefined` which appends the string
+ *   "undefined". Recursive setTimeout passes idx as a parameter, so each
+ *   call captures the correct value at invocation time.
+ *
+ * @param text    - Full text to animate.
+ * @param enabled - When false the full text is shown instantly (older cards).
+ * @param speed   - Milliseconds between words. Default 14ms.
  */
 export function useTypewriter(text: string, enabled: boolean, speed = 14) {
   const [displayed, setDisplayed] = useState(enabled ? '' : text);
-  const [complete, setComplete] = useState(!enabled);
+  const [complete, setComplete]   = useState(!enabled);
 
   useEffect(() => {
     if (!enabled) {
@@ -23,20 +29,29 @@ export function useTypewriter(text: string, enabled: boolean, speed = 14) {
     setComplete(false);
 
     const words = text.split(' ');
-    let idx = 0;
+    let cancelled = false;
 
-    const timer = setInterval(() => {
+    const typeNext = (idx: number) => {
+      if (cancelled) return;
+
       if (idx < words.length) {
-        // Build string incrementally to avoid O(n²) concat
-        setDisplayed(prev => (idx === 0 ? words[0] : prev + ' ' + words[idx]));
-        idx++;
+        // Capture word value here — not via closure over a mutable index variable
+        const word    = words[idx];
+        const isFirst = idx === 0;
+        setDisplayed(prev => (isFirst ? word : prev + ' ' + word));
+        setTimeout(() => typeNext(idx + 1), speed);
       } else {
-        setComplete(true);
-        clearInterval(timer);
+        if (!cancelled) setComplete(true);
       }
-    }, speed);
+    };
 
-    return () => clearInterval(timer);
+    // Small initial delay so the card's fade-in finishes before typing starts
+    const kickoff = setTimeout(() => typeNext(0), 80);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(kickoff);
+    };
   }, [text, enabled, speed]);
 
   return { displayed, complete };

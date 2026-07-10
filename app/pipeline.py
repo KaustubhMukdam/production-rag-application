@@ -32,7 +32,15 @@ class Pipeline:
         self.retriever = QdrantHybridRetriever()
         self.reranker = Reranker()
         self.generator = create_generator()
-        self._indexed = False
+        # If Qdrant Cloud already has data from a previous session we can
+        # serve queries immediately without re-embedding everything.
+        existing = self.retriever.size
+        self._indexed = existing > 0
+        if self._indexed:
+            logger.info(
+                "Qdrant already has %d chunks — skipping startup re-index.",
+                existing,
+            )
 
     def index_documents(self, documents: list) -> None:
         chunks = self.chunker.chunk_documents(documents)

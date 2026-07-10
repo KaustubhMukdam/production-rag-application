@@ -1,15 +1,19 @@
 const NAV_ITEMS = [
-  { icon: 'menu_book',    label: 'Chapters',  active: false },
-  { icon: 'format_quote', label: 'Citations', active: true  },
-  { icon: 'list_alt',     label: 'Index',     active: false },
-  { icon: 'history',      label: 'History',   active: false },
+  { icon: 'menu_book',    label: 'Chapters',  active: false, available: false },
+  { icon: 'format_quote', label: 'Citations', active: true,  available: true  },
+  { icon: 'list_alt',     label: 'Index',     active: false, available: false },
+  { icon: 'history',      label: 'History',   active: false, available: false },
 ] as const;
 
 /**
  * Left navigation sidebar.
- * - Hidden on mobile
- * - 64px icon-only strip on md (768px+)
- * - 240px full labels on lg (1024px+)
+ *  - Hidden on mobile
+ *  - 64px icon-only strip on md (768px+)
+ *  - 240px full labels on lg (1024px+)
+ *
+ * Chapters / Index / History are structural placeholders — they are rendered
+ * as per the Stitch design but marked "coming soon" on hover. Only Citations
+ * (the active query view) is functional in v1.
  */
 export default function Sidebar() {
   return (
@@ -33,7 +37,6 @@ export default function Sidebar() {
         </p>
       </div>
 
-      {/* Nav items */}
       <ul className="flex-1 py-sm">
         {NAV_ITEMS.map(item => (
           <NavItem key={item.label} {...item} />
@@ -47,28 +50,39 @@ function NavItem({
   icon,
   label,
   active,
+  available,
 }: {
   icon: string;
   label: string;
   active: boolean;
+  available: boolean;
 }) {
   return (
     <li>
       <a
         href="#"
         onClick={e => e.preventDefault()}
-        title={label}
+        title={available ? label : `${label} — coming soon`}
         className={[
-          'flex items-center gap-md px-md py-sm transition-colors',
+          'group flex items-center gap-md px-md py-sm transition-colors relative',
           active
             ? 'bg-surface-container-high border-r-2 border-primary text-primary'
-            : 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface',
+            : available
+            ? 'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
+            : 'text-on-surface-variant/40 cursor-default',
         ].join(' ')}
       >
         <span className="material-symbols-outlined shrink-0">{icon}</span>
-        <span className="font-sans text-body-sm hidden lg:block whitespace-nowrap">
+        <span className="font-sans text-body-sm hidden lg:block whitespace-nowrap flex-1">
           {label}
         </span>
+
+        {/* "Coming soon" pill — only on lg sidebar, only for inactive unavailable items */}
+        {!available && (
+          <span className="hidden lg:inline-flex font-mono text-[9px] tracking-widest uppercase text-on-surface-variant/40 border border-outline-variant/40 rounded px-[4px] py-[1px]">
+            soon
+          </span>
+        )}
       </a>
     </li>
   );

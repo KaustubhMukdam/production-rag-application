@@ -3,35 +3,46 @@ import { fetchHealth } from '../api';
 import type { HealthData } from '../types';
 
 /**
- * Polls GET /health every 5 seconds and exposes a manual refresh trigger.
- * Useful for tracking the indexing state after POST /index.
+ * Polls GET /health and exposes a manual refresh trigger.
+ *
+ * Polling interval is 30 s (not 5 s) to avoid exhausting Windows socket
+ * buffers (WinError 10055) under `uvicorn --reload`.  Each fetch is
+ * cancelled via AbortController if the component unmounts or a new poll
+ * cycle starts before the previous one completes.
  */
 export function useHealth() {
   const [health, setHealth] = useState<HealthData | null>(null);
   const [tick, setTick] = useState(0);
 
-  /** Call after triggering a re-index to immediately re-check health. */
+  /** Call after triggering re-index for an immediate re-check. */
   const triggerRefresh = useCallback(() => setTick(t => t + 1), []);
 
   useEffect(() => {
-    let cancelled = false;
+    const controller = new AbortController();
+    let timerId: ReturnType<typeof setTimeout>;
 
     const check = async () => {
       try {
         const data = await fetchHealth();
-        if (!cancelled) setHealth(data);
+        if (!controller.signal.aborted) setHealth(data);
       } catch {
-        if (!cancelled) setHealth(null);
+        if (!controller.signal.aborted) setHealth(null);
       }
     };
 
-    check();
-    const id = setInterval(check, 5_000);
-    return () => {
-      cancelled = true;
-      clearInterval(id);
+    const schedule = () => {
+      check();
+      // Poll every 30 s — generous enough to avoid socket exhaustion on Windows
+      timerId = setTimeout(schedule, 30_000);
     };
-  }, [tick]); // re-run the whole effect (and reset interval) on manual refresh
+
+    schedule();
+
+    return () => {
+      controller.abort();
+      clearTimeout(timerId);
+    };
+  }, [tick]);
 
   return { health, triggerRefresh };
 }
